@@ -1,0 +1,23 @@
+{
+    "presets": [
+        [
+            "env",
+            {
+                "loose": true,
+                "modules": false
+            }
+        ],
+        "react"
+    ],
+    "plugins": [
+        "glamorous-displayname",
+        "transform-object-rest-spread"
+    ],
+    "env": {
+        "commonjs": {
+            "plugins": [
+                "transform-es2015-modules-commonjs"
+            ]
+        }
+    }
+}
