@@ -1,0 +1,14 @@
+{
+  "name": "graphql-css",
+  "version": "0.0.1",
+  "description": "Very serious GraphQL + CSS integration.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphql-anywhere": "^4.1.6"
+  }
+}
