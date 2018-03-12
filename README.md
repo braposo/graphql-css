@@ -52,7 +52,7 @@ It work with the following format `gqlCSS(styles)(query, element)`:
 | -------------- | --------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | styles       | object          |       | The styleguide object with all the rules |
 | query       | gql          |       | The gql query to get the styles |
-| tag       | string || boolean         | "div"      | HTML tag to be displayed. If set to false only styles are returned. |
+| tag       | string \|\| boolean         | "div"      | HTML tag to be displayed. If set to false only styles are returned. |
 
 Here's how you can use it:
 
