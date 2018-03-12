@@ -4,7 +4,7 @@ A very serious GraphQL + CSS integration.
 
 ## Installation
 
-```
+```bash
 npm install graphql-css
 # or
 yarn add graphql-css
