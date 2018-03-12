@@ -126,6 +126,9 @@ The `<GqlCSSProvider>` component allows to pass down the styles definition to an
 </div>
 ```
 
+## Developing
+You can use `yarn run dev` and `yarn run dev:server` to run the examples and test this library before using it in your project.
+
 ## License
 
-[MIT](https://github.com/EDITD/react-responsive-picture/blob/master/LICENSE)
+[MIT](https://github.com/davidgomes/graphql-css/blob/master/LICENSE)
