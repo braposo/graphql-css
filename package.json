@@ -12,9 +12,9 @@
         "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack src/index.js --output dist/graphql-css.min.js --mode production",
         "clean": "rimraf lib dist es",
         "dev": "yarn run clean && cross-env BABEL_ENV=commonjs babel src -d lib --watch",
+        "dev:server": "cross-env NODE_ENV=dev-server webpack-dev-server examples --config webpack.config.js --content-base examples --inline --hot --mode development",
         "lint": "eslint src/ --ext .js,.jsx",
-        "prepublish": "yarn run clean && yarn run build",
-        "release": "np",
+        "prepublishOnly": "yarn run clean && yarn run build",
         "test": "echo \"No tests available\" && exit 0"
     },
     "repository": {
@@ -38,18 +38,18 @@
         "processor"
     ],
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "dependencies": {
         "glamorous": "^4.12.0",
         "graphql": "^0.13.1",
         "graphql-anywhere": "^4.1.6",
+        "graphql-tag": "^2.8.0",
         "react-broadcast": "^0.6.2"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
         "babel-loader": "^7.1.4",
-        "babel-plugin-glamorous-displayname": "^2.2.0",
         "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
         "babel-plugin-transform-object-rest-spread": "^6.26.0",
         "babel-preset-env": "^1.6.1",
@@ -57,8 +57,10 @@
         "cross-env": "^5.1.4",
         "glamor": "^2.20.40",
         "react": "^16.2.0",
+        "react-dom": "^16.2.0",
         "rimraf": "^2.6.2",
         "webpack": "^4.1.1",
-        "webpack-cli": "^2.0.11"
+        "webpack-cli": "^2.0.11",
+        "webpack-dev-server": "^3.1.1"
     }
 }

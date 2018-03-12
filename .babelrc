@@ -9,15 +9,10 @@
         ],
         "react"
     ],
-    "plugins": [
-        "glamorous-displayname",
-        "transform-object-rest-spread"
-    ],
+    "plugins": ["transform-object-rest-spread"],
     "env": {
         "commonjs": {
-            "plugins": [
-                "transform-es2015-modules-commonjs"
-            ]
+            "plugins": ["transform-es2015-modules-commonjs"]
         }
     }
 }
