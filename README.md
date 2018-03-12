@@ -46,7 +46,7 @@ const App = () => (
 #### gqlCSS
 `gqlCSS` needs to be initialised with the styles from the styleguide in a JSON format (check examples folder for a detailed example).
 
-It work with the following format `gqlCSS(styles)(query, element)`:
+It works with the following format `gqlCSS(styles)(query, element)`:
 
 | Arg           | Type            | Default                           | Definition                                                                                                                                    |
 | -------------- | --------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -56,13 +56,13 @@ It work with the following format `gqlCSS(styles)(query, element)`:
 
 Here's how you can use it:
 
-```js
+```jsx
 const Text = gqlCSS(styles)(query);
 ...
 <Text>This is a styled text<Text>
 ```
 alternatively you can also initialise it separately and reuse it:
-```js
+```jsx
 const getStyles = gqlCSS(styles);
 ...
 const ComponentOne = getStyles(queryOne);
@@ -71,7 +71,7 @@ const ComponentTwo = getStyles(queryTwo);
 
 `gqlCSS` returns a `glamorous` component by default, which means it accepts everything that `glamorous` supports such as additional styling through the `css` prop or changing the HTML tag used.
 
-```js
+```jsx
 const Component = gqlCSS(styles)(query);
 const ComponentH1 = gqlCSS(styles)(query, "h1");
 ...
@@ -79,9 +79,9 @@ const ComponentH1 = gqlCSS(styles)(query, "h1");
 <ComponentH1 />
 ```
 
-If the `tag` argument is set to false it'll only return the styles object so it can be used with other libraries.
+If the `tag` argument is set to false it'll only return the styles object so it can be used with other libraries or just inline styles.
 
-```js
+```jsx
 const styles = gqlCSS(styles)(query, false);
 ...
 <div styles={styles}>Inline styled text</div>
@@ -89,7 +89,7 @@ const styles = gqlCSS(styles)(query, false);
 
 #### GqlCSS
 
-`<GqlCSS>` component allows for a more declarative API and accepts three props.
+`<GqlCSS>` component allows for a more declarative API and accepts these props:
 
 | Prop           | Type            | Default                           | Definition                                                                                                                                    |
 | -------------- | --------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -99,7 +99,7 @@ const styles = gqlCSS(styles)(query, false);
 
 All the remaining props are passed to the generated component so you can still use `glamorous` API. Here are some examples:
 
-```js
+```jsx
 ...
 <GqlCSS styles={styles} query={query}>This is a styled text</GqlCSS>
 <GqlCSS styles={styles} query={queryH1} tag="h1">This is a styled H1 heading</GqlCSS>
@@ -110,7 +110,7 @@ All the remaining props are passed to the generated component so you can still u
 #### GqlCSSProvider
 The `<GqlCSSProvider>` component allows to pass down the styles definition to any `<GqlCSS>` component that exists down the tree. Ideally, you'd use `<GqlCSSProvider>` in the root of your application.
 
-```js
+```jsx
 <GqlCSSProvider styles={styles}>
     <App />
 </GqlCSSProvider>
