@@ -2,8 +2,6 @@
 
 A very serious GraphQL + CSS integration.
 
----
-
 ## Installation
 
 With npm:
@@ -41,11 +39,11 @@ const App = () => (
 );
 ```
 
-### API
+## API
 
 `graphql-css` exports one helper function `gqlCSS()` and two components `<GqlCSS>` and `<GqlCSSProvider>`.
 
-##### gqlCSS
+#### gqlCSS
 `gqlCSS` needs to be initialised with the styles from the styleguide in a JSON format (check examples folder for a detailed example).
 
 It work with the following format `gqlCSS(styles)(query, element)`:
@@ -89,7 +87,7 @@ const styles = gqlCSS(styles)(query, false);
 <div styles={styles}>Inline styled text</div>
 ```
 
-##### GqlCSS
+#### GqlCSS
 
 `<GqlCSS>` component allows for a more declarative API and accepts three props.
 
@@ -109,7 +107,7 @@ All the remaining props are passed to the generated component so you can still u
 ...
 ```
 
-##### GqlCSSProvider
+#### GqlCSSProvider
 The `<GqlCSSProvider>` component allows to pass down the styles definition to any `<GqlCSS>` component that exists down the tree. Ideally, you'd use `<GqlCSSProvider>` in the root of your application.
 
 ```js
