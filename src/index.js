@@ -42,10 +42,15 @@ const resolver = (fieldName, root, args = {}, context, { resultKey }) => {
 };
 
 // Main function to generate glamorous component with styles
-const gqlCSS = styles => (query, element) => {
+const gqlCSS = styles => (query, tag) => {
     const generatedStyles = graphql(resolver, query, styles, null, null);
     const smooshedStyles = smoosh(generatedStyles);
-    const component = element || "div";
+    const component = tag || "div";
+
+    // Returns just smooshed styles if tag is false
+    if (tag === false) {
+        return smooshedStyles;
+    }
 
     // Create glamorous component
     return glamorous(component)(smooshedStyles);
