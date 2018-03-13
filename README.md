@@ -32,25 +32,24 @@ const textStyles = gql`
 
 const Text = graphqlCSS(styles)(textStyles);
 
-const App = () => (
-    <Text>This is a styled text</Text>
-);
+const App = () => <Text>This is a styled text</Text>;
 ```
 
 ## API
 
-`graphql-css` exports one helper function `gqlCSS()` and two components `<GqlCSS>` and `<GqlCSSProvider>`.
+`graphql-css` exports one helper function (`gqlCSS()`), two components (`<GqlCSS>` and `<GqlCSSProvider>`), one HOC (`withGqlCSS`) and one render props component (`<WithGqlCSS>`).
 
 #### gqlCSS
+
 `gqlCSS` needs to be initialised with the styles from the styleguide in a JSON format (check examples folder for a detailed example).
 
 It works with the following format `gqlCSS(styles)(query, element)`:
 
-| Arg           | Type            | Default                           | Definition                                                                                                                                    |
-| -------------- | --------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| styles       | object          |       | The styleguide object with all the rules |
-| query       | gql          |       | The gql query to get the styles |
-| tag       | string \|\| boolean         | "div"      | HTML tag to be displayed. If set to false only styles are returned. |
+| Arg    | Type                | Default | Definition                                                          |
+| ------ | ------------------- | ------- | ------------------------------------------------------------------- |
+| styles | object              |         | The styleguide object with all the rules                            |
+| query  | gql                 |         | The gql query to get the styles                                     |
+| tag    | string \|\| boolean | "div"   | HTML tag to be displayed. If set to false only styles are returned. |
 
 Here's how you can use it:
 
@@ -59,7 +58,9 @@ const Text = gqlCSS(styles)(query);
 ...
 <Text>This is a styled text<Text>
 ```
+
 alternatively you can also initialise it separately and reuse it:
+
 ```jsx
 const getStyles = gqlCSS(styles);
 ...
@@ -89,11 +90,11 @@ const styles = gqlCSS(styles)(query, false);
 
 `<GqlCSS>` component allows for a more declarative API and accepts these props:
 
-| Prop           | Type            | Default                           | Definition                                                                                                                                    |
-| -------------- | --------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| styles       | object          |       | The styleguide object with all the rules |
-| query       | gql          |       | The gql query to get the styles |
-| tag       | string          | "div"      | HTML tag to be displayed |
+| Prop   | Type   | Default | Definition                               |
+| ------ | ------ | ------- | ---------------------------------------- |
+| styles | object |         | The styleguide object with all the rules |
+| query  | gql    |         | The gql query to get the styles          |
+| tag    | string | "div"   | HTML tag to be displayed                 |
 
 All the remaining props are passed to the generated component so you can still use `glamorous` API. Here are some examples:
 
@@ -106,6 +107,7 @@ All the remaining props are passed to the generated component so you can still u
 ```
 
 #### GqlCSSProvider
+
 The `<GqlCSSProvider>` component allows to pass down the styles definition to any `<GqlCSS>` component that exists down the tree. Ideally, you'd use `<GqlCSSProvider>` in the root of your application.
 
 ```jsx
@@ -126,7 +128,42 @@ The `<GqlCSSProvider>` component allows to pass down the styles definition to an
 </div>
 ```
 
+#### withGqlCSS
+
+`withGqlCSS` is a HOC that injects the styles to your existing component through the `gqlStyles` prop.
+
+```jsx
+// In component.js
+const Component = ({ gqlStyles }) => <div styles={gqlStyles}>...</div>;
+
+export default withGqlCSS(styles, query)(Component);
+```
+
+To avoid always adding the styles you can initialise the existing HOC with your styleguide and then reuse it in the code.
+
+```jsx
+// in your HOC file
+import styles from "your-style-guide";
+import { withGqlCSS } from "graphql-css";
+
+export const myHOC = (query) => withGqlCSS(styles, query);
+
+// in your component file
+export myHOC(query)(Component);
+```
+
+#### WithGqlCSS
+
+`WithGqlCSS` works similarly to `withGqlCSS` but uses the function-as-a-child aka render props pattern.
+
+```jsx
+<WithGqlCSS styles={styles} query={h2Styles}>
+    {({ gqlStyles }) => <div style={gqlStyles}>Render props component</div>}
+</WithGqlCSS>
+```
+
 ## Developing
+
 You can use `yarn run dev` and `yarn run dev:server` to run the examples and test this library before using it in your project.
 
 ## License
