@@ -75,4 +75,19 @@ export const GqlCSSProvider = ({ styles, children }) => (
     </Broadcast>
 );
 
+// Export HOC
+export const withGqlCSS = (styles, query) => Component => props => {
+    return (
+        <WithGqlCSS styles={styles} query={query}>
+            {({ gqlStyles }) => <Component {...props} gqlStyles={gqlStyles} />}
+        </WithGqlCSS>
+    );
+};
+
+// Export render props component
+export const WithGqlCSS = ({ styles, query, children, ...rest }) => {
+    const processedStyles = gqlCSS(styles)(query, false);
+    return children({ gqlStyles: processedStyles, ...rest });
+};
+
 export default gqlCSS;
