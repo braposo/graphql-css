@@ -19,12 +19,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/davidgomes/graphql-css.git"
+        "url": "git+https://github.com/braposo/graphql-css.git"
     },
     "bugs": {
-        "url": "https://github.com/davidgomes/graphql-css/issues"
+        "url": "https://github.com/braposo/graphql-css/issues"
     },
-    "homepage": "https://github.com/davidgomes/graphql-css#readme",
+    "homepage": "https://github.com/braposo/graphql-css#readme",
     "files": [
         "es",
         "dist",
