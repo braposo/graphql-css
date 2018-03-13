@@ -154,7 +154,7 @@ export myHOC(query)(Component);
 
 #### WithGqlCSS
 
-`WithGqlCSS` works similarly to `withGqlCSS` but uses the function-as-a-child aka render props pattern.
+`<WithGqlCSS>` works similarly to `withGqlCSS` but uses the function-as-a-child aka render props pattern.
 
 ```jsx
 <WithGqlCSS styles={styles} query={h2Styles}>
