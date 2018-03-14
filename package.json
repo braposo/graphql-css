@@ -41,9 +41,7 @@
     "license": "MIT",
     "dependencies": {
         "glamorous": "^4.12.0",
-        "graphql": "^0.13.1",
         "graphql-anywhere": "^4.1.6",
-        "graphql-tag": "^2.8.0",
         "react-broadcast": "^0.6.2"
     },
     "devDependencies": {
@@ -56,6 +54,7 @@
         "babel-preset-react": "^6.24.1",
         "cross-env": "^5.1.4",
         "glamor": "^2.20.40",
+        "graphql-tag": "^2.8.0",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
         "rimraf": "^2.6.2",
