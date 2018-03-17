@@ -1,10 +1,20 @@
-const primitives = {
-    colors: {
-        blue: "blue",
-        green: "green",
-        red: "red",
+const styles = {
+    typography: {
+        scale: {
+            s: "12px",
+            base: "16px",
+            m: "24px",
+            l: "36px",
+            xl: "54px",
+            xxl: "81px",
+        },
+        weight: {
+            thin: 300,
+            normal: 400,
+            bold: 700,
+            bolder: 900,
+        },
     },
-
     spacing: {
         s: "4px",
         base: "8px",
@@ -13,23 +23,11 @@ const primitives = {
         xl: "32px",
         xxl: "40px",
     },
-};
-
-const styles = {
-    typography: {
-        h1: {
-            fontSize: "30px",
-            fontWeight: 700,
-            color: primitives.colors.blue,
-        },
-        h2: {
-            fontSize: "24px",
-            fontWeight: 700,
-            color: primitives.colors.red,
-        },
+    colors: {
+        blue: "blue",
+        green: "green",
+        red: "red",
     },
-    spacing: primitives.spacing,
-    colors: primitives.colors,
 };
 
 export default styles;

@@ -6,7 +6,12 @@ import gql from "graphql-tag";
 const h2Styles = gql`
     {
         typography {
-            h2
+            fontSize: scale {
+                l
+            }
+            fontWeight: weight {
+                bold
+            }
         }
         marginLeft: spacing {
             xl
@@ -18,9 +23,14 @@ const h2Styles = gql`
 `;
 
 const h1Styles = gql`
-    {
+    fragment H1 on styles {
         typography {
-            h1
+            fontSize: scale {
+                xl
+            }
+            fontWeight: weight {
+                bold
+            }
         }
         marginLeft: spacing {
             l
@@ -31,25 +41,40 @@ const h1Styles = gql`
     }
 `;
 
+const customH1Styles = gql`
+    ${h1Styles}
+    {
+        ...H1
+        color: colors {
+            blue
+        }
+    }
+`;
+
 // Generates H2 glamorous component
 const H2 = gqlCSS(styles)(h2Styles, "h2");
+
+// Simulates existing H2 component
+const H2Comp = (props) => <h2 {...props} />
 
 // Extracts styles object
 const inlineStyles = gqlCSS(styles)(h2Styles, false);
 
-// Creates
-const ExistingHOCComponent = ({ children, gqlStyles, ...rest }) => (
+// Simulates existing component that is enhanced by the HOC
+const ExistingComponent = ({ children, gqlStyles, ...rest }) => (
     <div style={gqlStyles} {...rest}>
         {children}
     </div>
 );
-const myHOC = query => withGqlCSS(styles, query);
-const HOCStyledComponent = myHOC(h1Styles)(ExistingHOCComponent);
+
+const HOCStyledComponent = withGqlCSS(styles, customH1Styles)(ExistingComponent);
+
+
 
 const App = () => (
     <div>
         <H2>This is a styled text</H2>
-        <GqlCSS styles={styles} query={h2Styles} tag="h2">
+        <GqlCSS styles={styles} query={h2Styles} component={H2Comp}>
             Using component
         </GqlCSS>
         <GqlCSSProvider styles={styles}>
