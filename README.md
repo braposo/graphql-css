@@ -1,4 +1,4 @@
-# <img src="https://user-images.githubusercontent.com/38172/37561184-50288d50-2a40-11e8-9f19-e23c4ca61c32.png" style="max-height: 110px" />
+# <a href="https://github.com/braposo/graphql-css"><img src="https://user-images.githubusercontent.com/38172/37561184-50288d50-2a40-11e8-9f19-e23c4ca61c32.png" width="376" /></a>
 
 `graphql-css` is a blazing fast CSS-in-GQL™ library.
 
