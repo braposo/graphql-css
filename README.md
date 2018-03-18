@@ -1,4 +1,4 @@
-# <img src="https://user-images.githubusercontent.com/38172/37561065-eaf948f0-2a3c-11e8-8cfe-f1922bf42df0.png" height="110px" />
+# <img src="https://user-images.githubusercontent.com/38172/37561184-50288d50-2a40-11e8-9f19-e23c4ca61c32.png" height="110px" />
 
 `graphql-css` is a blazing fast CSS-in-GQL™ library.
 
