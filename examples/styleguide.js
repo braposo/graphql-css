@@ -1,12 +1,13 @@
+const base = 4
 const styles = {
     typography: {
         scale: {
-            s: 12,
-            base: 16,
-            m: 24,
-            l: 36,
-            xl: 54,
-            xxl: 81,
+            s: base * 3,
+            base: base * 4,
+            m: base * 6,
+            l: base * 9,
+            xl: base * 13,
+            xxl: base * 20,
             unit: "px"
         },
         weight: {
@@ -17,12 +18,12 @@ const styles = {
         },
     },
     spacing: {
-        s: 4,
-        base: 8,
-        m: 16,
-        l: 24,
-        xl: 32,
-        xxl: 40,
+        s: base,
+        base: base * 2,
+        m: base * 4,
+        l: base * 6,
+        xl: base * 8,
+        xxl: base * 10,
     },
     colors: {
         blue: "blue",
