@@ -19,23 +19,33 @@ const smoosh = object => {
     );
 };
 
-const resolver = (fieldName, root, args = {}, context, { resultKey }) => {
+const resolver = (fieldName, root = {}, args = {}, context, { resultKey }) => {
     // if it's an aliased query add alias as prop
     if (fieldName !== resultKey) {
         return {
             ...root[fieldName],
+            ...args,
             prop: resultKey,
         };
+    }
+
+    let res = root[fieldName];
+    const rootUnit = root && root.unit;
+    const argsUnit = args && args.unit;
+
+    if (argsUnit || rootUnit) {
+        const unit = argsUnit || rootUnit;
+        res = root[fieldName] + unit;
     }
 
     // if has prop then use it as the key
     if (root.prop) {
         return {
-            [root.prop]: root[fieldName],
+            [root.prop]: res,
         };
     }
 
-    return root[fieldName];
+    return res;
 };
 
 // Main function to generate glamorous component with styles
