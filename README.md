@@ -195,15 +195,17 @@ export myHOC(query)(Component);
 The styles object is a valid JSON object that is used to define the styleguide of your project. Usually it includes definitions for colors, spacing, typography, etc.
 
 ```js
+const base = 4
 const styles = {
     typography: {
         scale: {
-            s: "12px",
-            base: "16px",
-            m: "24px",
-            l: "36px",
-            xl: "54px",
-            xxl: "81px",
+            s: base * 3,
+            base: base * 4,
+            m: base * 6,
+            l: base * 9,
+            xl: base * 13,
+            xxl: base * 20,
+            unit: "px"
         },
         weight: {
             thin: 300,
@@ -213,12 +215,12 @@ const styles = {
         },
     },
     spacing: {
-        s: "4px",
-        base: "8px",
-        m: "16px",
-        l: "24px",
-        xl: "32px",
-        xxl: "40px",
+        s: base,
+        base: base * 2,
+        m: base * 4,
+        l: base * 6,
+        xl: base * 8,
+        xxl: base * 10,
     },
     colors: {
         blue: "blue",
@@ -229,6 +231,8 @@ const styles = {
 ```
 
 This is completely up to you and one of the big advantages of using `graphql-css` as you can adapt it to your needs. As long as the styles and the queries match their structure, there shouldn't be much problem.
+
+You can also specify the unit of each property by definining the `unit` key.
 
 ## Building the GraphQL query
 
@@ -288,6 +292,21 @@ const otherH1Styles = gql`
 ```
 
 This is a powerful pattern that avoids lots of repetitions and allows for a bigger separation of concerns.
+
+You can also override the pre-defined unit directly in your query by using the argument `unit`:
+
+```js
+{
+    marginLeft: spacing(unit: "em") {
+        l
+    }
+    paddingTop: spacing {
+        xl
+    }
+}
+```
+
+This will return `marginLeft: 24em, paddingTop: 32px`.
 
 ## Developing
 

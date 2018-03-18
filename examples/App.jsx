@@ -46,6 +46,9 @@ const customH1Styles = gql`
     ${h1Styles}
     {
         ...H1
+        marginLeft: spacing(unit: "em") {
+            s
+        }
         color: colors {
             blue
         }
