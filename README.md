@@ -1,6 +1,8 @@
 # <a href="https://github.com/braposo/graphql-css"><img src="https://user-images.githubusercontent.com/38172/37561184-50288d50-2a40-11e8-9f19-e23c4ca61c32.png" width="376" /></a>
 
-`graphql-css` is a blazing fast CSS-in-GQL™ library.
+`graphql-css` is a blazing fast CSS-in-GQL™ library that converts GraphQL queries into styles for your components.
+
+Comes with a bunch of utilities so it's easy to integrate with your favourite way of building components.
 
 [![npm version][version-badge]][npm]
 [![npm downloads][downloads-badge]][npm]
