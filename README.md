@@ -26,7 +26,7 @@ yarn add graphql-css
 
 *   `glamor`
 *   `graphql`
-*   `graphql-css`
+*   `graphql-tag`
 
 It's likely you already have these installed, but in the case you don't you just need to run `npm install <package>` or `yarn add <package>` to install them.
 
