@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./styleguide";
 import gqlCSS, { GqlCSS, GqlCSSProvider, withGqlCSS, WithGqlCSS } from "../lib";
 import gql from "graphql-tag";
+import glamorous from "glamorous";
 
 const h2Styles = gql`
     {
@@ -61,10 +62,8 @@ const H2Comp = (props) => <h2 {...props} />
 const inlineStyles = gqlCSS(styles)(h2Styles, false);
 
 // Simulates existing component that is enhanced by the HOC
-const ExistingComponent = ({ children, gqlStyles, ...rest }) => (
-    <div style={gqlStyles} {...rest}>
-        {children}
-    </div>
+const ExistingComponent = ({ gqlStyles, ...rest }) => (
+    <glamorous.Div css={gqlStyles} {...rest} />
 );
 
 const HOCStyledComponent = withGqlCSS(styles, customH1Styles)(ExistingComponent);
