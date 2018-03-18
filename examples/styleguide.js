@@ -1,12 +1,13 @@
 const styles = {
     typography: {
         scale: {
-            s: "12px",
-            base: "16px",
-            m: "24px",
-            l: "36px",
-            xl: "54px",
-            xxl: "81px",
+            s: 12,
+            base: 16,
+            m: 24,
+            l: 36,
+            xl: 54,
+            xxl: 81,
+            unit: "px"
         },
         weight: {
             thin: 300,
@@ -16,12 +17,12 @@ const styles = {
         },
     },
     spacing: {
-        s: "4px",
-        base: "8px",
-        m: "16px",
-        l: "24px",
-        xl: "32px",
-        xxl: "40px",
+        s: 4,
+        base: 8,
+        m: 16,
+        l: 24,
+        xl: 32,
+        xxl: 40,
     },
     colors: {
         blue: "blue",
