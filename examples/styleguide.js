@@ -1,5 +1,5 @@
-const base = 4
-const styles = {
+const base = 4;
+const baseStyles = {
     typography: {
         scale: {
             s: base * 3,
@@ -8,7 +8,7 @@ const styles = {
             l: base * 9,
             xl: base * 13,
             xxl: base * 20,
-            unit: "px"
+            unit: "px",
         },
         weight: {
             thin: 300,
@@ -29,6 +29,28 @@ const styles = {
         blue: "blue",
         green: "green",
         red: "red",
+    },
+};
+
+const styles = {
+    base: baseStyles,
+    todo: {
+        normal: {
+            text: {
+                fontSize: baseStyles.typography.scale.l,
+                backgroundColor: baseStyles.colors.red,
+                padding: baseStyles.spacing.l,
+                cursor: "pointer"
+            },
+        },
+        done: {
+            text: {
+                fontSize: baseStyles.typography.scale.l,
+                backgroundColor: baseStyles.colors.green,
+                padding: baseStyles.spacing.l,
+                cursor: "pointer"
+            },
+        },
     },
 };
 
