@@ -35,7 +35,7 @@ It's likely you already have these installed, but in the case you don't you just
 ## Quick start
 
 ```jsx
-import gqlCSS from "graphql-css";
+import graphqlCSS from "graphql-css";
 import styles from "your-style-guide";
 
 const textStyles = gql`
