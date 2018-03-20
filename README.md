@@ -52,7 +52,7 @@ const textStyles = gql`
     }
 `;
 
-const Text = graphqlCSS(styles)(textStyles);
+const Text = gqlCSS(styles)(textStyles);
 
 const App = () => <Text>This is a styled text</Text>;
 ```
