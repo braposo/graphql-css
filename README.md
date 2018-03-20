@@ -61,15 +61,15 @@ Playground: https://codesandbox.io/s/jq22wyqm3
 
 ## API
 
-`graphql-css` exports a few different components and helper functions:
+`graphql-css` exports a few different components and utility functions:
 
-*   `gqlCSS()`: a helper function to build glamorous components
+*   `gqlCSS()`: an utility function to build [glamorous](https://glamorous.rocks/) components
 *   `<GqlCSS>`: a component that displays the queried styles
 *   `<GqlCSSProvider>`: a provider component that broadcasts the styles object to any child `<GqlCSS>` component
 *   `withGqlCSS`: a High-Order Component that injects styles in the components
 *   `<WithGqlCSS>`: a function-as-a-child component that does the same thing as the HOC but it's cooler
 
-#### gqlCSS
+### gqlCSS
 
 `gqlCSS` needs to be initialised with the styles from the styleguide in a JSON format (check examples folder for a detailed example).
 
@@ -98,7 +98,7 @@ const ComponentOne = getStyles(queryOne);
 const ComponentTwo = getStyles(queryTwo);
 ```
 
-`gqlCSS` returns a `glamorous` component by default, which means it accepts everything that `glamorous` supports such as additional styling through the `css` prop or changing the HTML element used.
+`gqlCSS` returns a [`glamorous`](https://glamorous.rocks/) component by default, which means it accepts everything that `glamorous` supports such as additional styling through the `css` prop or changing the HTML element used.
 
 ```jsx
 const Component = gqlCSS(styles)(query);
@@ -116,7 +116,7 @@ const styles = gqlCSS(styles)(query, false);
 <div styles={styles}>Inline styled text</div>
 ```
 
-#### GqlCSS
+### GqlCSS
 
 `<GqlCSS>` component allows for a more declarative API and accepts these props:
 
@@ -136,7 +136,7 @@ All the remaining props are passed to the generated component so you can still u
 ...
 ```
 
-#### GqlCSSProvider
+### GqlCSSProvider
 
 The `<GqlCSSProvider>` component allows to pass down the styles definition to any `<GqlCSS>` component that exists down the tree. Ideally, you'd use `<GqlCSSProvider>` in the root of your application.
 
@@ -158,7 +158,7 @@ The `<GqlCSSProvider>` component allows to pass down the styles definition to an
 </div>
 ```
 
-#### withGqlCSS
+### withGqlCSS
 
 `withGqlCSS` is a HOC that injects the styles to your existing component through the `gqlStyles` prop.
 
@@ -182,7 +182,7 @@ export const myHOC = (query) => withGqlCSS(styles, query);
 export myHOC(query)(Component);
 ```
 
-#### WithGqlCSS
+### WithGqlCSS
 
 `<WithGqlCSS>` works similarly to `withGqlCSS` but uses the function-as-a-child aka render props pattern.
 
@@ -235,6 +235,18 @@ const styles = {
 This is completely up to you and one of the big advantages of using `graphql-css` as you can adapt it to your needs. As long as the styles and the queries match their structure, there shouldn't be much problem.
 
 You can also specify the unit of each property by definining the `unit` key.
+
+```js
+scale: {
+    s: base * 3,
+    base: base * 4,
+    m: base * 6,
+    l: base * 9,
+    xl: base * 13,
+    xxl: base * 20,
+    unit: "em"
+},
+```
 
 ## Building the GraphQL query
 
