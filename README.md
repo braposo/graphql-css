@@ -278,6 +278,8 @@ This also means that you can reuse the same query by using different alias:
 }
 ```
 
+#### Using fragments
+
 Because _This is just GraphQL™_, you can also create fragments that can then be included in other queries:
 
 ```js
@@ -307,6 +309,8 @@ const otherH1Styles = gql`
 
 This is a powerful pattern that avoids lots of repetitions and allows for a bigger separation of concerns.
 
+#### Defining custom unit
+
 You can also override the pre-defined unit directly in your query by using the argument `unit`:
 
 ```js
@@ -321,6 +325,39 @@ You can also override the pre-defined unit directly in your query by using the a
 ```
 
 This will return `marginLeft: 24em, paddingTop: 32px`.
+
+#### Using style variations (theming)
+
+One of the big advantages of CSS-in-GQL™ is that you can use the power of variables to build custom queries. In `graphql-css` that means that we can easily define variants (think themes) for specific components.
+
+```js
+const styles = {
+    theme: {
+        light: {
+            button: {
+                // button light styles
+            },
+        },
+        dark: {
+            button: {
+                // button dark styles
+            },
+        },
+    },
+};
+
+const stateStyles = gql`
+    {
+        theme(variant: $variant) {
+            button
+        }
+    }
+`;
+
+// This can also be a stateful component that changes the variant according to state.
+// Please check the examples folder for a detailed example.
+const StyledComponent = gqlCSS(styles)(stateStyles, null, { variant: "light" });
+```
 
 ## Developing
 
