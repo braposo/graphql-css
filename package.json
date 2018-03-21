@@ -15,7 +15,8 @@
         "dev:server": "cross-env NODE_ENV=dev-server webpack-dev-server examples --config webpack.config.js --content-base examples --inline --hot --mode development",
         "lint": "eslint src/ --ext .js,.jsx",
         "prepublishOnly": "yarn run clean && yarn run build",
-        "test": "echo \"No tests available\" && exit 0"
+        "test": "jest --coverage",
+        "test:watch": "jest --watchAll --coverage"
     },
     "repository": {
         "type": "git",
@@ -60,8 +61,11 @@
         "glamor": "^2.20.40",
         "graphql": "^0.13.1",
         "graphql-tag": "^2.8.0",
+        "jest": "^22.4.2",
+        "jest-glamor-react": "^4.2.0",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
+        "react-testing-library": "^1.3.0",
         "rimraf": "^2.6.2",
         "webpack": "^4.1.1",
         "webpack-cli": "^2.0.11",
