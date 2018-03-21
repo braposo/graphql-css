@@ -6,8 +6,8 @@
     "module": "es/index.js",
     "scripts": {
         "build": "yarn run build:commonjs && yarn run build:es && npm run build:umd && npm run build:umd:min",
-        "build:es": "babel src -d es",
-        "build:commonjs": "cross-env BABEL_ENV=commonjs babel src -d lib",
+        "build:es": "babel src -d es --ignore '**/*.test.js'",
+        "build:commonjs": "cross-env BABEL_ENV=commonjs babel src -d lib --ignore '**/*.test.js'",
         "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack src/index.js --output dist/graphql-css.js --mode development",
         "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack src/index.js --output dist/graphql-css.min.js --mode production",
         "clean": "rimraf lib dist es",
