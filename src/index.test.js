@@ -113,7 +113,9 @@ describe('withGqlCSS', () => {
         const ExistingComponent = ({ gqlStyles, ...rest }) => (
             <Div css={gqlStyles} {...rest}>test</Div>
         );
-        const {container} = render(withGqlCSS(styles, customH1Styles)(ExistingComponent))
+
+        const HOC = withGqlCSS(styles, customH1Styles)(ExistingComponent)
+        const {container} = render(<HOC />)
 
         expect(container).toMatchSnapshot()
     });

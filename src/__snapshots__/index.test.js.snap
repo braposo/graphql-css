@@ -114,4 +114,20 @@ exports[`gqlCSS it supports variables and stateful components 2`] = `
 </div>
 `;
 
-exports[`withGqlCSS it supports the HOC pattern 1`] = `<div />`;
+exports[`withGqlCSS it supports the HOC pattern 1`] = `
+.css-0,
+[data-css-0] {
+  font-size: 52px;
+  font-weight: 700;
+  margin-left: 4em;
+  color: blue;
+}
+
+<div>
+  <div
+    class="css-0"
+  >
+    test
+  </div>
+</div>
+`;
