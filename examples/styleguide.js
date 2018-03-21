@@ -34,9 +34,9 @@ const baseStyles = {
 
 const styles = {
     base: baseStyles,
-    todo: {
+    theme: {
         normal: {
-            text: {
+            button: {
                 fontSize: baseStyles.typography.scale.l,
                 backgroundColor: baseStyles.colors.red,
                 padding: baseStyles.spacing.l,
@@ -44,7 +44,7 @@ const styles = {
             },
         },
         done: {
-            text: {
+            button: {
                 fontSize: baseStyles.typography.scale.l,
                 backgroundColor: baseStyles.colors.green,
                 padding: baseStyles.spacing.l,
