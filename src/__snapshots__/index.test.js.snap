@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GqlCSS it renders component without styles 1`] = `
+<div>
+  <div
+    class="css-nil"
+  >
+    Using component
+  </div>
+</div>
+`;
+
 exports[`GqlCSSProvider it supports the Provider/Subscriber pattern 1`] = `
 .css-0,
 [data-css-0] {
@@ -47,6 +57,22 @@ exports[`WithGqlCSS it supports the render props pattern 1`] = `
   >
     Render props component
   </div>
+</div>
+`;
+
+exports[`gqlCSS it returns a styled component by not passing any component 1`] = `
+.css-0,
+[data-css-0] {
+  font-size: 36px;
+  font-weight: 700;
+  margin-left: 32px;
+  color: green;
+}
+
+<div>
+  <div
+    class="css-0"
+  />
 </div>
 `;
 
