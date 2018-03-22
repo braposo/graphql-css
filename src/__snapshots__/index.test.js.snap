@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GqlCSS it renders component without styles 1`] = `
+<div>
+  <div
+    class="css-nil"
+  >
+    Using component
+  </div>
+</div>
+`;
+
+exports[`GqlCSSProvider it supports the Provider/Subscriber pattern 1`] = `
+.css-0,
+[data-css-0] {
+  font-size: 36px;
+  font-weight: 700;
+  margin-left: 32px;
+  color: green;
+}
+
+.css-1,
+[data-css-1] {
+  font-size: 52px;
+  font-weight: 700;
+  margin-left: 24px;
+  color: red;
+  margin-top: 30px;
+}
+
+<div>
+  <span>
+    <div>
+      <div>
+        <span>
+          <div
+            class="css-0"
+          >
+            Using provider
+          </div>
+        </span>
+      </div>
+      <div
+        class="css-1"
+      >
+        Also using provider
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`WithGqlCSS it supports the render props pattern 1`] = `
+<div>
+  <div
+    style="font-size: 36px; font-weight: 700; margin-left: 32px; color: green;"
+  >
+    Render props component
+  </div>
+</div>
+`;
+
+exports[`gqlCSS it returns a styled component by not passing any component 1`] = `
+.css-0,
+[data-css-0] {
+  font-size: 36px;
+  font-weight: 700;
+  margin-left: 32px;
+  color: green;
+}
+
+<div>
+  <div
+    class="css-0"
+  />
+</div>
+`;
+
+exports[`gqlCSS it returns a styled component by passing a div 1`] = `
+.css-0,
+[data-css-0] {
+  font-size: 36px;
+  font-weight: 700;
+  margin-left: 32px;
+  color: green;
+}
+
+<div>
+  <div
+    class="css-0"
+  />
+</div>
+`;
+
+exports[`gqlCSS it supports variables and stateful components 1`] = `
+.css-0,
+[data-css-0] {
+  font-size: 36px;
+  background-color: red;
+  padding: 24px;
+  cursor: pointer;
+}
+
+<div>
+  <div
+    class="css-0"
+    data-testid="stateful-component"
+  >
+    Using stateful component
+  </div>
+  <div
+    class="css-0"
+  >
+    Other sharing state
+  </div>
+</div>
+`;
+
+exports[`gqlCSS it supports variables and stateful components 2`] = `
+.css-0,
+[data-css-0] {
+  font-size: 36px;
+  background-color: green;
+  padding: 24px;
+  cursor: pointer;
+}
+
+<div>
+  <div
+    class="css-0"
+    data-testid="stateful-component"
+  >
+    Using stateful component
+  </div>
+  <div
+    class="css-0"
+  >
+    Other sharing state
+  </div>
+</div>
+`;
+
+exports[`withGqlCSS it supports the HOC pattern 1`] = `
+.css-0,
+[data-css-0] {
+  font-size: 52px;
+  font-weight: 700;
+  margin-left: 4em;
+  color: blue;
+}
+
+<div>
+  <div
+    class="css-0"
+  >
+    test
+  </div>
+</div>
+`;

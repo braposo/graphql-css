@@ -19,7 +19,7 @@ const smoosh = object => {
     );
 };
 
-const resolver = (fieldName, root = {}, args = {}, context, { resultKey }) => {
+const resolver = (fieldName, root, args, context, { resultKey }) => {
     // if it's an aliased query add alias as prop
     if (fieldName !== resultKey) {
         return {
