@@ -5,17 +5,22 @@
     "main": "./lib/index.js",
     "module": "es/index.js",
     "scripts": {
-        "build": "yarn run build:commonjs && yarn run build:es && npm run build:umd && npm run build:umd:min",
+        "build":
+            "yarn run build:commonjs && yarn run build:es && npm run build:umd && npm run build:umd:min",
         "build:es": "babel src -d es --ignore '**/*.test.js'",
         "build:commonjs": "cross-env BABEL_ENV=commonjs babel src -d lib --ignore '**/*.test.js'",
-        "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack src/index.js --output dist/graphql-css.js --mode development",
-        "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack src/index.js --output dist/graphql-css.min.js --mode production",
+        "build:umd":
+            "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack src/index.js --output dist/graphql-css.js --mode development",
+        "build:umd:min":
+            "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack src/index.js --output dist/graphql-css.min.js --mode production",
         "clean": "rimraf lib dist es",
         "dev": "yarn run clean && cross-env BABEL_ENV=commonjs babel src -d lib --watch",
-        "dev:server": "cross-env NODE_ENV=dev-server webpack-dev-server examples --config webpack.config.js --content-base examples --inline --hot --mode development",
+        "dev:server":
+            "cross-env NODE_ENV=dev-server webpack-dev-server examples --config webpack.config.js --content-base examples --inline --hot --mode development",
+        "format": "prettier --write \"**/*.{js,md,ts,json}\" *.{js,md,ts,json}",
         "lint": "eslint src/ --ext .js,.jsx",
-        "prepublishOnly": "yarn run clean && yarn run build",
-        "test": "jest --coverage",
+        "prepublishOnly": "yarn run clean && yarn run test && yarn run build",
+        "test": "jest --no-cache",
         "test:watch": "jest --watchAll --coverage"
     },
     "repository": {
@@ -26,19 +31,8 @@
         "url": "https://github.com/braposo/graphql-css/issues"
     },
     "homepage": "https://github.com/braposo/graphql-css#readme",
-    "files": [
-        "es",
-        "dist",
-        "lib",
-        "src"
-    ],
-    "keywords": [
-        "graphql",
-        "css",
-        "styles",
-        "processor",
-        "css-in-gql"
-    ],
+    "files": ["es", "dist", "lib", "src"],
+    "keywords": ["graphql", "css", "styles", "processor", "css-in-gql"],
     "authors": [
         "Bernardo Raposo <hi@bernardoraposo.com> (https://github.com/braposo)",
         "David Gomes <davidrafagomes@gmail.com> (https://github.com/davidgomes)"
@@ -63,6 +57,8 @@
         "graphql-tag": "^2.8.0",
         "jest": "^22.4.2",
         "jest-glamor-react": "^4.2.0",
+        "lint-staged": "^7.0.0",
+        "prettier": "^1.11.1",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
         "react-testing-library": "^1.3.0",
@@ -75,5 +71,8 @@
         "glamor": "^2.20.40",
         "graphql": "^0.13.1",
         "graphql-tag": "^2.8.0"
+    },
+    "lint-staged": {
+        "*.{js,md,ts,json}": ["prettier --write", "git add"]
     }
 }
