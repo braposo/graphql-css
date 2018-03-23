@@ -18,7 +18,8 @@
         "precommit": "lint-staged",
         "prepublishOnly": "yarn run clean && yarn run test && yarn run build",
         "test": "jest --no-cache",
-        "test:watch": "jest --watchAll --coverage"
+        "test:watch": "jest --watchAll --coverage",
+        "ci": "scripts/ci.sh"
     },
     "repository": {
         "type": "git",
@@ -95,9 +96,5 @@
             "prettier --write",
             "git add"
         ]
-    },
-    "jest": {
-        "coverageDirectory": "./coverage/",
-        "collectCoverage": true
     }
 }
