@@ -72,7 +72,11 @@ export const GqlCSS = ({ styles, query, component = "div", variables, ...rest })
     return (
         <Subscriber quiet={true} channel="graphqlcss">
             {contextStyles => {
-                const Component = gqlCSS(styles || contextStyles || "")(query, component, variables);
+                const Component = gqlCSS(styles || contextStyles || "")(
+                    query,
+                    component,
+                    variables
+                );
                 return <Component {...rest} />;
             }}
         </Subscriber>

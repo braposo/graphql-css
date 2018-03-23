@@ -13,7 +13,6 @@ Comes with a bunch of utilities so it's easy to integrate with your favourite wa
 ![Modern][modern-badge]
 ![Enterprise Grade][enterprise-badge]
 
-
 ## Installation
 
 ```bash
@@ -75,11 +74,11 @@ Playground: https://codesandbox.io/s/jq22wyqm3
 
 It works with the following format `gqlCSS(styles)(query, element)`:
 
-| Arg    | Type                | Default | Definition                                                          |
-| ------ | ------------------- | ------- | ------------------------------------------------------------------- |
-| styles | object              |         | The styleguide object with all the rules                            |
-| query  | gql                 |         | The gql query to get the styles                                     |
-| component    | string \|\| node \|\| boolean | "div"   | HTML element or React component to be displayed. If set to false only styles are returned. |
+| Arg       | Type                          | Default | Definition                                                                                 |
+| --------- | ----------------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| styles    | object                        |         | The styleguide object with all the rules                                                   |
+| query     | gql                           |         | The gql query to get the styles                                                            |
+| component | string \|\| node \|\| boolean | "div"   | HTML element or React component to be displayed. If set to false only styles are returned. |
 
 Here's how you can use it:
 
@@ -120,11 +119,11 @@ const styles = gqlCSS(styles)(query, false);
 
 `<GqlCSS>` component allows for a more declarative API and accepts these props:
 
-| Prop   | Type   | Default | Definition                               |
-| ------ | ------ | ------- | ---------------------------------------- |
-| styles | object |         | The styleguide object with all the rules |
-| query  | gql    |         | The gql query to get the styles          |
-| component    | string \|\| node | "div"   | HTML element or React component  to be displayed                 |
+| Prop      | Type             | Default | Definition                                      |
+| --------- | ---------------- | ------- | ----------------------------------------------- |
+| styles    | object           |         | The styleguide object with all the rules        |
+| query     | gql              |         | The gql query to get the styles                 |
+| component | string \|\| node | "div"   | HTML element or React component to be displayed |
 
 All the remaining props are passed to the generated component so you can still use `glamorous` API. Here are some examples:
 
@@ -197,7 +196,7 @@ export myHOC(query)(Component);
 The styles object is a valid JSON object that is used to define the styleguide of your project. Usually it includes definitions for colors, spacing, typography, etc.
 
 ```js
-const base = 4
+const base = 4;
 const styles = {
     typography: {
         scale: {
@@ -207,7 +206,7 @@ const styles = {
             l: base * 9,
             xl: base * 13,
             xxl: base * 20,
-            unit: "px"
+            unit: "px",
         },
         weight: {
             thin: 300,
@@ -294,7 +293,7 @@ const h1Styles = gql`
             }
         }
     }
-`
+`;
 
 const otherH1Styles = gql`
     ${h1Styles}
@@ -375,7 +374,6 @@ Please follow our [contributing guidelines](https://github.com/braposo/graphql-c
 [license]: https://github.com/braposo/graphql-css/blob/master/LICENSE
 [prs]: http://makeapullrequest.com
 [size]: https://unpkg.com/graphql-css/dist/graphql-css.min.js
-
 [version-badge]: https://img.shields.io/npm/v/graphql-css.svg?style=flat-square
 [downloads-badge]: https://img.shields.io/npm/dm/graphql-css.svg?style=flat-square
 [license-badge]: https://img.shields.io/npm/l/graphql-css.svg?style=flat-square
