@@ -21,6 +21,3 @@ script:
   - if [ "${NODE_ENV}" = "production" ]; then yarn test; fi
   - if [ "${NODE_ENV}" = "development" ]; then AST_COMPARE=1 yarn test --runInBand; fi
   - if [ "${NODE_ENV}" = "development" ]; then yarn codecov; fi
-branches:
-  only:
-    - master
