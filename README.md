@@ -9,6 +9,7 @@ Comes with a bunch of utilities so it's easy to integrate with your favourite wa
 [![gzip size][size-badge]][size]
 [![MIT License][license-badge]][license]
 [![PRs Welcome][prs-badge]][prs]
+![Prettier format][prettier-badge]
 ![Blazing Fast][fast-badge]
 ![Modern][modern-badge]
 ![Enterprise Grade][enterprise-badge]
@@ -382,3 +383,4 @@ Please follow our [contributing guidelines](https://github.com/braposo/graphql-c
 [enterprise-badge]: https://img.shields.io/badge/🏢-Enterprise%20Grade-999999.svg?style=flat-square
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [size-badge]: http://img.badgesize.io/https://unpkg.com/graphql-css/dist/graphql-css.min.js?compression=gzip&style=flat-square
+[prettier-badge]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
