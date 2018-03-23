@@ -41,7 +41,7 @@ describe("gqlCSS", () => {
                 this.state = {
                     variant: "normal",
                 };
-                this.toggleVariant = this.toggleVariant.bind(this);
+                this.handleClick = this.handleClick.bind(this);
             }
 
             handleClick() {
