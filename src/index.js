@@ -2,11 +2,12 @@ import React from "react";
 import graphql from "graphql-anywhere";
 import glamorous from "glamorous";
 import { Broadcast, Subscriber } from "react-broadcast";
+import PropTypes from "prop-types";
 
-const smoosh = object => {
-    return Object.assign(
+const smoosh = object =>
+    Object.assign(
         {},
-        ...(function _flatten(objectBit, path = "") {
+        ...(function _flatten(objectBit) {
             return [].concat(
                 ...Object.keys(objectBit).map(
                     key =>
@@ -17,7 +18,6 @@ const smoosh = object => {
             );
         })(object)
     );
-};
 
 const resolver = (fieldName, root, args, context, { resultKey }) => {
     // if it's an aliased query add alias as prop
@@ -68,19 +68,19 @@ const gqlCSS = styles => (query, component = "div", variables) => {
 };
 
 // Also export component for more declarative API
-export const GqlCSS = ({ styles, query, component = "div", variables, ...rest }) => {
-    return (
-        <Subscriber quiet={true} channel="graphqlcss">
-            {contextStyles => {
-                const Component = gqlCSS(styles || contextStyles || "")(
-                    query,
-                    component,
-                    variables
-                );
-                return <Component {...rest} />;
-            }}
-        </Subscriber>
-    );
+export const GqlCSS = ({ styles, query, component = "div", variables, ...rest }) => (
+    <Subscriber quiet={true} channel="graphqlcss">
+        {contextStyles => {
+            const Component = gqlCSS(styles || contextStyles || "")(query, component, variables);
+            return <Component {...rest} />;
+        }}
+    </Subscriber>
+);
+GqlCSS.propTypes = {
+    styles: PropTypes.object,
+    query: PropTypes.object,
+    variables: PropTypes.object,
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 };
 
 // Export provider to broadcast styles to child GqlCSS components
@@ -89,15 +89,17 @@ export const GqlCSSProvider = ({ styles, children }) => (
         <span>{children}</span>
     </Broadcast>
 );
+GqlCSSProvider.propTypes = {
+    styles: PropTypes.object,
+    children: PropTypes.node,
+};
 
 // Export HOC - uses render props underneath, because it's awesome
-export const withGqlCSS = (styles, query, variables) => Component => props => {
-    return (
-        <WithGqlCSS styles={styles} query={query} variables={variables}>
-            {({ gqlStyles }) => <Component {...props} gqlStyles={gqlStyles} />}
-        </WithGqlCSS>
-    );
-};
+export const withGqlCSS = (styles, query, variables) => Component => props => (
+    <WithGqlCSS styles={styles} query={query} variables={variables}>
+        {({ gqlStyles }) => <Component {...props} gqlStyles={gqlStyles} />}
+    </WithGqlCSS>
+);
 
 // Export render props component
 export const WithGqlCSS = ({ styles, query, variables, children, ...rest }) => {
