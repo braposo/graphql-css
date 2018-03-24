@@ -391,4 +391,4 @@ Please follow our [contributing guidelines](https://github.com/braposo/graphql-c
 [travis]: https://travis-ci.org/braposo/graphql-css
 [coverage-badge]: https://img.shields.io/codecov/c/github/braposo/graphql-css.svg?style=flat-square
 [coverage]: https://codecov.io/github/braposo/graphql-css
-[modules-badge]: https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20esm-green.svg
+[modules-badge]: https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20esm-green.svg?style=flat-square
