@@ -10,9 +10,10 @@ Comes with a bunch of utilities so it's easy to integrate with your favourite wa
 [![npm downloads][downloads-badge]][npm]
 [![gzip size][size-badge]][size]
 [![MIT License][license-badge]][license]
+
 ![Module format][modules-badge]
-[![PRs Welcome][prs-badge]][prs]
 ![Prettier format][prettier-badge]
+[![PRs Welcome][prs-badge]][prs]
 ![Blazing Fast][fast-badge]
 ![Modern][modern-badge]
 ![Enterprise Grade][enterprise-badge]
