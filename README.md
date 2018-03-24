@@ -387,7 +387,7 @@ Please follow our [contributing guidelines](https://github.com/braposo/graphql-c
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [size-badge]: http://img.badgesize.io/https://unpkg.com/graphql-css/dist/graphql-css.min.js?compression=gzip&style=flat-square
 [prettier-badge]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
-[build-badge]: https://travis-ci.org/braposo/graphql-css.svg?branch=master
+[build-badge]: https://img.shields.io/travis/braposo/graphql-css.svg?style=flat-square
 [travis]: https://travis-ci.org/braposo/graphql-css
 [coverage-badge]: https://img.shields.io/codecov/c/github/braposo/graphql-css.svg?style=flat-square
 [coverage]: https://codecov.io/github/braposo/graphql-css
