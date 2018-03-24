@@ -10,13 +10,16 @@
         "build:commonjs": "cross-env BABEL_ENV=commonjs babel src -d lib --ignore '**/*.test.js'",
         "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack src/index.js --output dist/graphql-css.js --mode development",
         "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack src/index.js --output dist/graphql-css.min.js --mode production",
-        "clean": "rimraf lib dist es",
+        "clean": "rimraf lib dist es coverage",
         "dev": "yarn run clean && cross-env BABEL_ENV=commonjs babel src -d lib --watch",
         "dev:server": "cross-env NODE_ENV=dev-server webpack-dev-server examples --config webpack.config.js --content-base examples --inline --hot --mode development",
+        "format": "prettier --write \"**/*.{js,md,ts,json}\" *.{js,md,ts,json}",
         "lint": "eslint src/ --ext .js,.jsx",
-        "prepublishOnly": "yarn run clean && yarn run build",
-        "test": "jest --coverage",
-        "test:watch": "jest --watchAll --coverage"
+        "precommit": "lint-staged",
+        "prepublishOnly": "yarn run clean && yarn run test && yarn run build",
+        "test": "jest --no-cache",
+        "test:watch": "jest --watchAll --coverage",
+        "ci": "scripts/ci.sh"
     },
     "repository": {
         "type": "git",
@@ -52,17 +55,29 @@
     "devDependencies": {
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
+        "babel-eslint": "^8.2.2",
         "babel-loader": "^7.1.4",
         "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
         "babel-plugin-transform-object-rest-spread": "^6.26.0",
         "babel-preset-env": "^1.6.1",
         "babel-preset-react": "^6.24.1",
+        "codecov": "^3.0.0",
         "cross-env": "^5.1.4",
+        "eslint": "^4.19.1",
+        "eslint-config-edited": "^1.0.0",
+        "eslint-config-prettier": "^2.9.0",
+        "eslint-plugin-import": "^2.9.0",
+        "eslint-plugin-prettier": "^2.6.0",
+        "eslint-plugin-react": "^7.7.0",
         "glamor": "^2.20.40",
         "graphql": "^0.13.1",
         "graphql-tag": "^2.8.0",
+        "husky": "^0.14.3",
         "jest": "^22.4.2",
         "jest-glamor-react": "^4.2.0",
+        "lint-staged": "^7.0.0",
+        "prettier": "^1.11.1",
+        "prop-types": "^15.6.1",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
         "react-testing-library": "^1.3.0",
@@ -75,5 +90,11 @@
         "glamor": "^2.20.40",
         "graphql": "^0.13.1",
         "graphql-tag": "^2.8.0"
+    },
+    "lint-staged": {
+        "*.{js,md,ts,json}": [
+            "prettier --write",
+            "git add"
+        ]
     }
 }

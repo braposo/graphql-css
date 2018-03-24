@@ -1,11 +1,10 @@
 /* eslint-env jest */
 
 import React from "react";
-import gql from "graphql-tag";
 import { render, Simulate } from "react-testing-library";
 import serializer from "jest-glamor-react";
 import { Div } from "glamorous";
-
+import PropTypes from "prop-types";
 import gqlCSS, { GqlCSS, GqlCSSProvider, WithGqlCSS, withGqlCSS } from "./index";
 import styles from "../examples/styleguide";
 import { h1Styles, h2Styles, customH1Styles, stateStyles } from "../examples/styleQueries";
@@ -42,13 +41,15 @@ describe("gqlCSS", () => {
                 this.state = {
                     variant: "normal",
                 };
-                this.toggleVariant = this.toggleVariant.bind(this);
+                this.handleClick = this.handleClick.bind(this);
             }
 
-            toggleVariant() {
-                this.setState(state => ({
-                    variant: state.variant === "normal" ? "done" : "normal",
-                }));
+            handleClick() {
+                this.setState(state => {
+                    return {
+                        variant: state.variant === "normal" ? "done" : "normal",
+                    };
+                });
             }
 
             render() {
@@ -61,7 +62,7 @@ describe("gqlCSS", () => {
                             styles={styles}
                             query={stateStyles}
                             variables={{ variant }}
-                            onClick={this.toggleVariant}
+                            onClick={this.handleClick}
                             data-testid="stateful-component"
                         >
                             Using stateful component
@@ -134,8 +135,12 @@ describe("withGqlCSS", () => {
             </Div>
         );
 
-        const HOC = withGqlCSS(styles, customH1Styles)(ExistingComponent);
-        const { container } = render(<HOC />);
+        ExistingComponent.propTypes = {
+            gqlStyles: PropTypes.object,
+        };
+
+        const HoC = withGqlCSS(styles, customH1Styles)(ExistingComponent);
+        const { container } = render(<HoC />);
 
         expect(container).toMatchSnapshot();
     });

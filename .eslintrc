@@ -1,0 +1,29 @@
+{
+    "extends": ["edited", "prettier", "prettier/react"],
+    "plugins": ["prettier"],
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx"]
+            }
+        }
+    },
+    "rules": {
+        "react/prefer-es6-class": [2, "always"],
+        "prettier/prettier": [
+            "error",
+            {
+                "trailingComma": "es5",
+                "tabWidth": 4,
+                "printWidth": 100
+            }
+        ]
+    }
+}

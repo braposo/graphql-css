@@ -4,15 +4,19 @@
 
 Comes with a bunch of utilities so it's easy to integrate with your favourite way of building components.
 
+[![Build Status][build-badge]][travis]
+[![Code Coverage][coverage-badge]][coverage]
 [![npm version][version-badge]][npm]
 [![npm downloads][downloads-badge]][npm]
 [![gzip size][size-badge]][size]
 [![MIT License][license-badge]][license]
+
+![Module format][modules-badge]
+![Prettier format][prettier-badge]
 [![PRs Welcome][prs-badge]][prs]
 ![Blazing Fast][fast-badge]
 ![Modern][modern-badge]
 ![Enterprise Grade][enterprise-badge]
-
 
 ## Installation
 
@@ -75,11 +79,11 @@ Playground: https://codesandbox.io/s/jq22wyqm3
 
 It works with the following format `gqlCSS(styles)(query, element)`:
 
-| Arg    | Type                | Default | Definition                                                          |
-| ------ | ------------------- | ------- | ------------------------------------------------------------------- |
-| styles | object              |         | The styleguide object with all the rules                            |
-| query  | gql                 |         | The gql query to get the styles                                     |
-| component    | string \|\| node \|\| boolean | "div"   | HTML element or React component to be displayed. If set to false only styles are returned. |
+| Arg       | Type                          | Default | Definition                                                                                 |
+| --------- | ----------------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| styles    | object                        |         | The styleguide object with all the rules                                                   |
+| query     | gql                           |         | The gql query to get the styles                                                            |
+| component | string \|\| node \|\| boolean | "div"   | HTML element or React component to be displayed. If set to false only styles are returned. |
 
 Here's how you can use it:
 
@@ -120,11 +124,11 @@ const styles = gqlCSS(styles)(query, false);
 
 `<GqlCSS>` component allows for a more declarative API and accepts these props:
 
-| Prop   | Type   | Default | Definition                               |
-| ------ | ------ | ------- | ---------------------------------------- |
-| styles | object |         | The styleguide object with all the rules |
-| query  | gql    |         | The gql query to get the styles          |
-| component    | string \|\| node | "div"   | HTML element or React component  to be displayed                 |
+| Prop      | Type             | Default | Definition                                      |
+| --------- | ---------------- | ------- | ----------------------------------------------- |
+| styles    | object           |         | The styleguide object with all the rules        |
+| query     | gql              |         | The gql query to get the styles                 |
+| component | string \|\| node | "div"   | HTML element or React component to be displayed |
 
 All the remaining props are passed to the generated component so you can still use `glamorous` API. Here are some examples:
 
@@ -197,7 +201,7 @@ export myHOC(query)(Component);
 The styles object is a valid JSON object that is used to define the styleguide of your project. Usually it includes definitions for colors, spacing, typography, etc.
 
 ```js
-const base = 4
+const base = 4;
 const styles = {
     typography: {
         scale: {
@@ -207,7 +211,7 @@ const styles = {
             l: base * 9,
             xl: base * 13,
             xxl: base * 20,
-            unit: "px"
+            unit: "px",
         },
         weight: {
             thin: 300,
@@ -294,7 +298,7 @@ const h1Styles = gql`
             }
         }
     }
-`
+`;
 
 const otherH1Styles = gql`
     ${h1Styles}
@@ -375,7 +379,6 @@ Please follow our [contributing guidelines](https://github.com/braposo/graphql-c
 [license]: https://github.com/braposo/graphql-css/blob/master/LICENSE
 [prs]: http://makeapullrequest.com
 [size]: https://unpkg.com/graphql-css/dist/graphql-css.min.js
-
 [version-badge]: https://img.shields.io/npm/v/graphql-css.svg?style=flat-square
 [downloads-badge]: https://img.shields.io/npm/dm/graphql-css.svg?style=flat-square
 [license-badge]: https://img.shields.io/npm/l/graphql-css.svg?style=flat-square
@@ -384,3 +387,9 @@ Please follow our [contributing guidelines](https://github.com/braposo/graphql-c
 [enterprise-badge]: https://img.shields.io/badge/🏢-Enterprise%20Grade-999999.svg?style=flat-square
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [size-badge]: http://img.badgesize.io/https://unpkg.com/graphql-css/dist/graphql-css.min.js?compression=gzip&style=flat-square
+[prettier-badge]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
+[build-badge]: https://img.shields.io/travis/braposo/graphql-css.svg?style=flat-square
+[travis]: https://travis-ci.org/braposo/graphql-css
+[coverage-badge]: https://img.shields.io/codecov/c/github/braposo/graphql-css.svg?style=flat-square
+[coverage]: https://codecov.io/github/braposo/graphql-css
+[modules-badge]: https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20esm-green.svg?style=flat-square

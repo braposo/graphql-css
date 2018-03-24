@@ -40,7 +40,7 @@ const styles = {
                 fontSize: baseStyles.typography.scale.l,
                 backgroundColor: baseStyles.colors.red,
                 padding: baseStyles.spacing.l,
-                cursor: "pointer"
+                cursor: "pointer",
             },
         },
         done: {
@@ -48,7 +48,7 @@ const styles = {
                 fontSize: baseStyles.typography.scale.l,
                 backgroundColor: baseStyles.colors.green,
                 padding: baseStyles.spacing.l,
-                cursor: "pointer"
+                cursor: "pointer",
             },
         },
     },
