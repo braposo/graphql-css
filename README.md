@@ -10,6 +10,7 @@ Comes with a bunch of utilities so it's easy to integrate with your favourite wa
 [![npm downloads][downloads-badge]][npm]
 [![gzip size][size-badge]][size]
 [![MIT License][license-badge]][license]
+![Module format][modules-badge]
 [![PRs Welcome][prs-badge]][prs]
 ![Prettier format][prettier-badge]
 ![Blazing Fast][fast-badge]
@@ -390,3 +391,4 @@ Please follow our [contributing guidelines](https://github.com/braposo/graphql-c
 [travis]: https://travis-ci.org/braposo/graphql-css
 [coverage-badge]: https://img.shields.io/codecov/c/github/braposo/graphql-css.svg?style=flat-square
 [coverage]: https://codecov.io/github/braposo/graphql-css
+[modules-badge]: https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20esm-green.svg
