@@ -89,7 +89,9 @@
     "peerDependencies": {
         "glamor": "^2.20.40",
         "graphql": "^14.0.2",
-        "graphql-tag": "^2.10.0"
+        "graphql-tag": "^2.10.0",
+        "react": "^16.7.0-alpha.2",
+        "react-dom": "^16.7.0-alpha.2"
     },
     "lint-staged": {
         "*.{js,md,ts,json}": [
