@@ -9,11 +9,10 @@ const smoosh = object =>
         {},
         ...(function _flatten(objectBit) {
             return [].concat(
-                ...Object.keys(objectBit).map(
-                    key =>
-                        typeof objectBit[key] === "object"
-                            ? _flatten(objectBit[key])
-                            : { [key]: objectBit[key] }
+                ...Object.keys(objectBit).map(key =>
+                    typeof objectBit[key] === "object"
+                        ? _flatten(objectBit[key])
+                        : { [key]: objectBit[key] }
                 )
             );
         })(object)
