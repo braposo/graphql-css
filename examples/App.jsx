@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./styleguide";
-import gqlCSS, { GqlCSS, GqlCSSProvider, WithGqlCSS } from "../lib";
-import gql from "graphql-tag";
-import glamorous from "glamorous";
+import gqlCSS, { GqlCSS, GqlCSSProvider, WithGqlCSS } from "../src";
 import HOCStyledComponent from "./HOC";
 import SubscriberComponent from "./SubscriberComponent";
 import StatefulComponent from "./StatefulComponent";
@@ -12,7 +10,7 @@ import { h2Styles } from "./styleQueries";
 const H2 = gqlCSS(styles)(h2Styles, "h2");
 
 // Simulates existing H2 component
-const H2Comp = (props) => <h2 {...props} />
+const H2Comp = props => <h2 {...props} />;
 
 // Extracts styles object
 const inlineStyles = gqlCSS(styles)(h2Styles, false);
@@ -24,7 +22,7 @@ const App = () => (
             Using component
         </GqlCSS>
         <GqlCSSProvider styles={styles}>
-            <SubscriberComponent/>
+            <SubscriberComponent />
         </GqlCSSProvider>
         <h2 style={inlineStyles}>Inline styles</h2>
         <HOCStyledComponent>HOC Styled Component</HOCStyledComponent>

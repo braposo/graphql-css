@@ -1,5 +1,5 @@
 import React from "react";
-import { GqlCSS } from "../lib";
+import { GqlCSS } from "../src";
 import { h1Styles, h2Styles } from "./styleQueries";
 
 // Simulates subscriber component

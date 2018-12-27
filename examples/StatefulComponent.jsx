@@ -1,6 +1,5 @@
 import React from "react";
-import gqlCSS, { GqlCSS } from "../lib";
-import glamorous from "glamorous";
+import gqlCSS, { GqlCSS } from "../src";
 import styles from "./styleguide";
 import { stateStyles } from "./styleQueries";
 
