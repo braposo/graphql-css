@@ -1,21 +1,27 @@
 {
     "presets": [
         [
-            "env",
+            "@babel/env",
             {
                 "loose": true,
                 "modules": false
             }
         ],
-        "react"
+        "@babel/react"
     ],
-    "plugins": ["transform-object-rest-spread"],
+    "plugins": [
+        "@babel/plugin-proposal-object-rest-spread",
+    ],
     "env": {
         "commonjs": {
-            "plugins": ["transform-es2015-modules-commonjs"]
+            "plugins": [
+                "@babel/plugin-transform-modules-commonjs"
+            ]
         },
         "test": {
-            "plugins": ["transform-es2015-modules-commonjs"]
+            "plugins": [
+                "@babel/plugin-transform-modules-commonjs"
+            ]
         }
     }
 }
