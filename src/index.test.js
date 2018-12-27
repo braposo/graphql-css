@@ -45,11 +45,9 @@ describe("gqlCSS", () => {
             }
 
             handleClick() {
-                this.setState(state => {
-                    return {
-                        variant: state.variant === "normal" ? "done" : "normal",
-                    };
-                });
+                this.setState(state => ({
+                    variant: state.variant === "normal" ? "done" : "normal",
+                }));
             }
 
             render() {

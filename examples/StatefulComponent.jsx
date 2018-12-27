@@ -9,10 +9,10 @@ class StatefulComponent extends React.Component {
         this.state = {
             variant: "normal",
         };
-        this.toggleVariant = this.toggleVariant.bind(this);
+        this.handleToggleVariant = this.handleToggleVariant.bind(this);
     }
 
-    toggleVariant() {
+    handleToggleVariant() {
         this.setState(state => ({
             variant: state.variant === "normal" ? "done" : "normal",
         }));
@@ -28,7 +28,7 @@ class StatefulComponent extends React.Component {
                     styles={styles}
                     query={stateStyles}
                     variables={{ variant }}
-                    onClick={this.toggleVariant}
+                    onClick={this.handleToggleVariant}
                 >
                     Using stateful component
                 </GqlCSS>
