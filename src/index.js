@@ -1,22 +1,8 @@
 import React from "react";
 import graphql from "graphql-anywhere";
-import glamorous from "glamorous";
-import { Broadcast, Subscriber } from "react-broadcast";
-import PropTypes from "prop-types";
-
-const smoosh = object =>
-    Object.assign(
-        {},
-        ...(function _flatten(objectBit) {
-            return [].concat(
-                ...Object.keys(objectBit).map(key =>
-                    typeof objectBit[key] === "object"
-                        ? _flatten(objectBit[key])
-                        : { [key]: objectBit[key] }
-                )
-            );
-        })(object)
-    );
+import cxs from "cxs/component";
+import { default as internalGql } from "graphql-tag";
+import { isGqlQuery, smoosh, interleave, buildQuery, isPlainObject, domElements } from "./utils";
 
 const resolver = (fieldName, root, args, context, { resultKey }) => {
     // if it's an aliased query add alias as prop
@@ -52,58 +38,60 @@ const resolver = (fieldName, root, args, context, { resultKey }) => {
     return res;
 };
 
-// Main function to generate glamorous component with styles
-const gqlCSS = styles => (query, component = "div", variables) => {
-    const generatedStyles = graphql(resolver, query, styles, null, variables);
-    const smooshedStyles = smoosh(generatedStyles);
-
-    // Returns just smooshed styles if component is false
-    if (component === false) {
-        return smooshedStyles;
+const gqlcssFactory = (el, styles) => (query, ...interpolations) => {
+    // It's an object from getStyles()
+    if (isPlainObject(query) && !isGqlQuery(query)) {
+        return cxs(el)(query);
     }
 
-    // Create glamorous component
-    return glamorous(component || "div")(smooshedStyles);
+    // map domelements to factory so we can do gqlcss.h2`query`
+    return cxs(el)(props => {
+        const parsedQuery = isGqlQuery(query)
+            ? query
+            : internalGql(buildQuery(interleave(query, interpolations), props).join(""));
+        let generatedStyles = {};
+
+        try {
+            generatedStyles = smoosh(graphql(resolver, parsedQuery, styles));
+        } catch (e) {
+            console.error("Not a valid gql query: ", e);
+        }
+        return generatedStyles;
+    });
 };
 
-// Also export component for more declarative API
-export const GqlCSS = ({ styles, query, component = "div", variables, ...rest }) => (
-    <Subscriber quiet={true} channel="graphqlcss">
-        {contextStyles => {
-            const Component = gqlCSS(styles || contextStyles || "")(query, component, variables);
-            return <Component {...rest} />;
-        }}
-    </Subscriber>
-);
-GqlCSS.propTypes = {
-    styles: PropTypes.object,
-    query: PropTypes.object,
-    variables: PropTypes.object,
-    component: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+// Component for more declarative API
+export const GqlCSS = ({ component = "div", query, styles, variables, ...rest }) => {
+    const { gqlcss, getStyles } = useGqlCSS(styles);
+    const Component = gqlcss[component](getStyles(query, variables));
+
+    return <Component {...rest} />;
 };
 
-// Export provider to broadcast styles to child GqlCSS components
-export const GqlCSSProvider = ({ styles, children }) => (
-    <Broadcast channel="graphqlcss" value={styles}>
-        <span>{children}</span>
-    </Broadcast>
-);
-GqlCSSProvider.propTypes = {
-    styles: PropTypes.object,
-    children: PropTypes.node,
+// Hook that returns gqlcss template tag, getStyles function and GqlCSS component
+const useGqlCSS = styles => {
+    const getStyles = (query, variables) => {
+        if (!isGqlQuery(query)) {
+            throw new Error("Query must be a gql query");
+        }
+
+        const generatedStyles = smoosh(graphql(resolver, query, styles, null, variables));
+
+        return generatedStyles;
+    };
+
+    const gqlcss = gqlcssFactory("div", styles);
+    domElements.forEach(domElement => {
+        gqlcss[domElement] = gqlcssFactory(domElement, styles);
+    });
+
+    const GqlCSSComponent = props => GqlCSS({ styles, ...props });
+
+    return { gqlcss, getStyles, GqlCSS: GqlCSSComponent };
 };
 
-// Export HOC - uses render props underneath, because it's awesome
-export const withGqlCSS = (styles, query, variables) => Component => props => (
-    <WithGqlCSS styles={styles} query={query} variables={variables}>
-        {({ gqlStyles }) => <Component {...props} gqlStyles={gqlStyles} />}
-    </WithGqlCSS>
-);
+// Export gql since it's already a dependency anyway
+export const gql = internalGql;
 
-// Export render props component
-export const WithGqlCSS = ({ styles, query, variables, children, ...rest }) => {
-    const processedStyles = gqlCSS(styles)(query, false, variables);
-    return children({ gqlStyles: processedStyles, ...rest });
-};
-
-export default gqlCSS;
+// Export hook by default
+export default useGqlCSS;
