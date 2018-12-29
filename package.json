@@ -29,28 +29,19 @@
         "url": "https://github.com/braposo/graphql-css/issues"
     },
     "homepage": "https://github.com/braposo/graphql-css#readme",
-    "files": [
-        "es",
-        "dist",
-        "lib",
-        "src"
-    ],
-    "keywords": [
-        "graphql",
-        "css",
-        "styles",
-        "processor",
-        "css-in-gql"
-    ],
+    "files": ["es", "dist", "lib", "src"],
+    "keywords": ["graphql", "css", "styles", "processor", "css-in-gql"],
     "authors": [
         "Bernardo Raposo <hi@bernardoraposo.com> (https://github.com/braposo)",
         "David Gomes <davidrafagomes@gmail.com> (https://github.com/davidgomes)"
     ],
     "license": "MIT",
     "dependencies": {
-        "glamorous": "^5.0.0",
+        "cxs": "6.2.0",
         "graphql-anywhere": "^4.1.24",
-        "react-broadcast": "^0.7.1"
+        "graphql-tag": "2.10.0",
+        "react": "16.7.0-alpha.2",
+        "react-dom": "16.7.0-alpha.2"
     },
     "devDependencies": {
         "@babel/cli": "^7.2.3",
@@ -96,9 +87,6 @@
         "react-dom": "^16.7.0-alpha.2"
     },
     "lint-staged": {
-        "*.{js,md,ts,json}": [
-            "prettier --write",
-            "git add"
-        ]
+        "*.{js,md,ts,json}": ["prettier --write", "git add"]
     }
 }
