@@ -61,7 +61,7 @@ const gqlcssFactory = (el, styles) => (query, ...interpolations) => {
     });
 };
 
-// Hook that returns gqlcss template tag, getStyles function and GqlCSS component
+// Hook-like function that returns gqlcss template tag, getStyles function and GqlCSS component
 const useGqlCSS = (styles = {}) => {
     const getStyles = (query, variables) => {
         if (!isGqlQuery(query)) {
@@ -78,16 +78,15 @@ const useGqlCSS = (styles = {}) => {
         gqlcss[domElement] = gqlcssFactory(domElement, styles);
     });
 
-    // eslint-disable-next-line no-use-before-define
     const GqlCSSComponent = props => GqlCSS({ styles, ...props });
 
-    return { gqlcss, getStyles, GqlCSS: GqlCSSComponent };
+    return { styled: gqlcss, getStyles, GqlCSS: GqlCSSComponent };
 };
 
 // Export Component for more declarative API
 export const GqlCSS = ({ component = "div", query, styles, variables, ...rest }) => {
-    const { gqlcss, getStyles } = useGqlCSS(styles);
-    const Component = gqlcss[component](getStyles(query, variables));
+    const { styled, getStyles } = useGqlCSS(styles);
+    const Component = styled[component](getStyles(query, variables));
 
     return <Component {...rest} />;
 };
