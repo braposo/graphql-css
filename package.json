@@ -86,8 +86,8 @@
     },
     "peerDependencies": {
         "graphql": "^14.0.2",
-        "react": "^16.7.0-alpha.2",
-        "react-dom": "^16.7.0-alpha.2"
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0"
     },
     "lint-staged": {
         "*.{js,md,ts,json}": [
