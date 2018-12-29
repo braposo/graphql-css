@@ -1,6 +1,12 @@
 {
-    "extends": ["edited", "prettier", "prettier/react"],
-    "plugins": ["prettier"],
+    "extends": ["eslint:recommended", "plugin:react/recommended", "prettier", "prettier/react"],
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "es6": true,
+        "commonjs": true
+    },
+    "plugins": ["react", "import", "prettier"],
     "parserOptions": {
         "ecmaVersion": 6,
         "sourceType": "module",
@@ -16,7 +22,7 @@
         }
     },
     "rules": {
-        "react/prefer-es6-class": [2, "always"],
+        "react/prop-types": 0,
         "prettier/prettier": [
             "error",
             {

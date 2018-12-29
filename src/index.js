@@ -54,22 +54,15 @@ const gqlcssFactory = (el, styles) => (query, ...interpolations) => {
         try {
             generatedStyles = smoosh(graphql(resolver, parsedQuery, styles));
         } catch (e) {
+            // eslint-disable-next-line no-console
             console.error("Not a valid gql query: ", e);
         }
         return generatedStyles;
     });
 };
 
-// Component for more declarative API
-export const GqlCSS = ({ component = "div", query, styles, variables, ...rest }) => {
-    const { gqlcss, getStyles } = useGqlCSS(styles);
-    const Component = gqlcss[component](getStyles(query, variables));
-
-    return <Component {...rest} />;
-};
-
 // Hook that returns gqlcss template tag, getStyles function and GqlCSS component
-const useGqlCSS = styles => {
+const useGqlCSS = (styles = {}) => {
     const getStyles = (query, variables) => {
         if (!isGqlQuery(query)) {
             throw new Error("Query must be a gql query");
@@ -85,9 +78,18 @@ const useGqlCSS = styles => {
         gqlcss[domElement] = gqlcssFactory(domElement, styles);
     });
 
+    // eslint-disable-next-line no-use-before-define
     const GqlCSSComponent = props => GqlCSS({ styles, ...props });
 
     return { gqlcss, getStyles, GqlCSS: GqlCSSComponent };
+};
+
+// Export Component for more declarative API
+export const GqlCSS = ({ component = "div", query, styles, variables, ...rest }) => {
+    const { gqlcss, getStyles } = useGqlCSS(styles);
+    const Component = gqlcss[component](getStyles(query, variables));
+
+    return <Component {...rest} />;
 };
 
 // Export gql since it's already a dependency anyway

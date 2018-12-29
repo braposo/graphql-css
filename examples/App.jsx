@@ -10,7 +10,7 @@ const Context = React.createContext();
 function StatefulComponent() {
     const [variant, setVariant] = useState("normal");
     const { gqlcss, GqlCSS } = useGqlCSS(styleguide);
-    const toggleVariant = () => setVariant(variant => (variant === "normal" ? "done" : "normal"));
+    const toggleVariant = () => setVariant(state => (state === "normal" ? "done" : "normal"));
     const OtherComponent = gqlcss`{
         theme(variant: ${props => props.variant}) {
             button
