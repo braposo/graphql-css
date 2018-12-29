@@ -24,6 +24,7 @@ const baseStyles = {
         l: base * 6,
         xl: base * 8,
         xxl: base * 10,
+        unit: "px",
     },
     colors: {
         blue: "blue",
