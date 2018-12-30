@@ -20,6 +20,28 @@ exports[`GqlCSS it renders component without styles 1`] = `
 </div>
 `;
 
+exports[`useGqlCSS with GqlCSS it supports variables and stateful components 1`] = `
+<div>
+  <div
+    class="x4 x5 x6 x7"
+    data-testid="stateful-component"
+  >
+    Using stateful component
+  </div>
+</div>
+`;
+
+exports[`useGqlCSS with GqlCSS it supports variables and stateful components 2`] = `
+<div>
+  <div
+    class="x4 x9 x6 x7"
+    data-testid="stateful-component"
+  >
+    Using stateful component
+  </div>
+</div>
+`;
+
 exports[`useGqlCSS with styled it fails if interpolation is null 1`] = `
 <div>
   <div
@@ -63,12 +85,6 @@ exports[`useGqlCSS with styled it returns a styled component 1`] = `
 exports[`useGqlCSS with styled it supports variables and stateful components 1`] = `
 <div>
   <div
-    class="x4 x5 x6 x7"
-    data-testid="stateful-component"
-  >
-    Using stateful component
-  </div>
-  <div
     class="x4 x5 x6 x7 x8"
   >
     Other component sharing state
@@ -78,12 +94,6 @@ exports[`useGqlCSS with styled it supports variables and stateful components 1`]
 
 exports[`useGqlCSS with styled it supports variables and stateful components 2`] = `
 <div>
-  <div
-    class="x4 x9 x6 x7"
-    data-testid="stateful-component"
-  >
-    Using stateful component
-  </div>
   <div
     class="x4 x9 x6 x7 x8"
   >

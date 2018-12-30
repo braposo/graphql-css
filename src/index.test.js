@@ -25,10 +25,10 @@ describe("useGqlCSS", () => {
         it("it supports variables and stateful components", () => {
             function StatefulComponent() {
                 const [variant, setVariant] = useState("normal");
-                const { styled, GqlCSS } = useGqlCSS(styles);
+                const { styled } = useGqlCSS(styles);
                 const toggleVariant = () =>
                     setVariant(state => (state === "normal" ? "done" : "normal"));
-                const OtherComponent = styled`{
+                const Button = styled`{
                     theme(variant: ${props => props.variant}) {
                         button
                     }
@@ -38,32 +38,22 @@ describe("useGqlCSS", () => {
                         }
                     }
                 }`;
-                OtherComponent.propTypes = {
+                Button.propTypes = {
                     variant: PropTypes.string.isRequired,
                 };
 
                 return (
-                    <React.Fragment>
-                        <GqlCSS
-                            query={stateStyles}
-                            variables={{ variant }}
-                            data-testid="stateful-component"
-                            onClick={toggleVariant}
-                        >
-                            Using stateful component
-                        </GqlCSS>
-                        <OtherComponent variant={variant}>
-                            Other component sharing state
-                        </OtherComponent>
-                    </React.Fragment>
+                    <Button variant={variant} onClick={toggleVariant}>
+                        Other component sharing state
+                    </Button>
                 );
             }
 
-            const { container, queryByTestId } = render(<StatefulComponent />);
+            const { container } = render(<StatefulComponent />);
 
             expect(container).toMatchSnapshot();
 
-            fireEvent.click(queryByTestId("stateful-component"));
+            fireEvent.click(container.firstChild);
 
             expect(container).toMatchSnapshot();
         });
@@ -263,6 +253,36 @@ describe("useGqlCSS", () => {
             const { getStyles } = useGqlCSS(styles);
             const query = "something else";
             expect(() => getStyles(query)).toThrowError("Query must be a valid gql query");
+        });
+    });
+
+    describe("with GqlCSS", () => {
+        it("it supports variables and stateful components", () => {
+            function StatefulComponent() {
+                const [variant, setVariant] = useState("normal");
+                const { GqlCSS } = useGqlCSS(styles);
+                const toggleVariant = () =>
+                    setVariant(state => (state === "normal" ? "done" : "normal"));
+
+                return (
+                    <GqlCSS
+                        query={stateStyles}
+                        variables={{ variant }}
+                        data-testid="stateful-component"
+                        onClick={toggleVariant}
+                    >
+                        Using stateful component
+                    </GqlCSS>
+                );
+            }
+
+            const { container, queryByTestId } = render(<StatefulComponent />);
+
+            expect(container).toMatchSnapshot();
+
+            fireEvent.click(queryByTestId("stateful-component"));
+
+            expect(container).toMatchSnapshot();
         });
     });
 });
