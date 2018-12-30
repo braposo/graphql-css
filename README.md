@@ -28,7 +28,7 @@ yarn add graphql-css
 
 #### Dependencies
 
-`graphql-css` requires `graphql` to be installed as a peer dependency. It also supports [React hooks](https://reactjs.org/docs/hooks-intro.html) so you can start using it right away.
+`graphql-css` requires `graphql` to be installed as a peer dependency. It's compatible with [React hooks](https://reactjs.org/docs/hooks-intro.html) so you can use it with React's latest version.
 
 ## Quick start
 
@@ -38,7 +38,7 @@ import styles from "your-style-guide";
 
 const App = () => {
     const { styled } = useGqlCSS(styles);
-    const Text = styled.p`
+    const H2 = styled.h2`
         {
             typography {
                 h2
@@ -51,7 +51,7 @@ const App = () => {
             }
         }
     `;
-    return <Text>This is a styled text</Text>;
+    return <H2>This is a styled text</H2>;
 };
 ```
 
@@ -59,10 +59,11 @@ const App = () => {
 
 ## API
 
-`graphql-css` exports a hook-like function by default. It also exports a couple of other utilities:
+By default, `graphql-css` exports a hook-like function called `useGqlCSS`. 
 
--   `useGqlCSS`: a function that provides some utilities to render styles. It's the default export.
--   `<GqlCSS>`: a component that provides the same declarative API
+It also exports a couple of other utilities:
+
+-   `GqlCSS`: a component that provides the same declarative API
 -   `gql`: the default export from `graphql-tag` so you don't have to install it if only using graphql-css
 
 ### useGqlCSS
@@ -84,7 +85,9 @@ const { styled } = useGqlCSS(styles);
 const Text = styled.p`
     {
         typography {
-            h2
+            fontSize: scale {
+                l
+            }
         }
     }
 `;
@@ -138,7 +141,7 @@ Please check the `GqlCSS` section below for a detailed reference.
 | query     | gql              |         | The gql query to get the styles                 |
 | component | string \|\| node | "div"   | HTML element or React component to be displayed |
 
-All the remaining props are passed to the generated component so you can still use `glamorous` API. Here are some examples:
+All the remaining props are passed to the generated component. Here are some examples:
 
 ```jsx
 ...
@@ -284,7 +287,7 @@ You can also override the pre-defined unit directly in your query by using the a
 }
 ```
 
-This will return `marginLeft: 24em, paddingTop: 32px`.
+This will return `{ marginLeft: "24em", paddingTop: "32px" }`.
 
 #### Using style variations (theming)
 
@@ -347,7 +350,7 @@ const LightButton = styled.button(getStyles(query, { variant: "light" }));
 
 ## Developing
 
-You can use `yarn run dev` to run it locally but we recommend using the [CodeSandbox playground][codesandbox] for development.
+You can use `yarn run dev` to run it locally, but we recommend using the [CodeSandbox playground][codesandbox] for development.
 
 ## Contributing
 
