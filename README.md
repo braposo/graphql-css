@@ -379,4 +379,4 @@ Please follow our [contributing guidelines](https://github.com/braposo/graphql-c
 [coverage]: https://codecov.io/github/braposo/graphql-css
 [modules-badge]: https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20esm-green.svg?style=flat-square
 [codesandbox-badge]: https://codesandbox.io/static/img/play-codesandbox.svg
-[codesandbox]: https://codesandbox.io/s/github/braposo/graphql-css/
+[codesandbox]: https://codesandbox.io/s/5vljjr4zo4
