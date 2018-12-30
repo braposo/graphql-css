@@ -17,7 +17,7 @@ function StatefulComponent() {
         }
         base {
             marginLeft: spacing {
-                m
+                ${variant === "done" ? "m" : "xl"}
             }
         }
     }`;
