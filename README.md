@@ -241,12 +241,14 @@ Because _This is just GraphQL™_, you can also create fragments that can then b
 ```js
 const h1Styles = gql`
     fragment H1 on Styles {
-        typography {
-            fontSize: scale {
-                xl
-            }
-            fontWeight: weight {
-                bold
+        base {
+            typography {
+                fontSize: scale {
+                    xl
+                }
+                fontWeight: weight {
+                    bold
+                }
             }
         }
     }
@@ -256,8 +258,10 @@ const otherH1Styles = gql`
     ${h1Styles}
     {
         ...H1
-        color: colors {
-            blue
+        base {
+            color: colors {
+                blue
+            }
         }
     }
 `;
