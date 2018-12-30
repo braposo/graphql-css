@@ -46,18 +46,17 @@ const gqlcssFactory = (el, styles) => (query, ...interpolations) => {
 
     // map domelements to factory so we can do gqlcss.h2`query`
     return cxs(el)(props => {
-        const parsedQuery = isGqlQuery(query)
-            ? query
-            : internalGql(buildQuery(interleave(query, interpolations), props).join(""));
-        let generatedStyles = {};
-
         try {
-            generatedStyles = smoosh(graphql(resolver, parsedQuery, styles));
+            const parsedQuery = isGqlQuery(query)
+                ? query
+                : internalGql(buildQuery(interleave(query, interpolations), props).join(""));
+
+            return smoosh(graphql(resolver, parsedQuery, styles));
         } catch (e) {
             // eslint-disable-next-line no-console
-            console.error("Not a valid gql query: ", e);
+            console.error("Not a valid gql query. Did you forget a prop?");
+            return {};
         }
-        return generatedStyles;
     });
 };
 
@@ -65,7 +64,7 @@ const gqlcssFactory = (el, styles) => (query, ...interpolations) => {
 const useGqlCSS = (styles = {}) => {
     const getStyles = (query, variables) => {
         if (!isGqlQuery(query)) {
-            throw new Error("Query must be a gql query");
+            throw new Error("Query must be a valid gql query");
         }
 
         const generatedStyles = smoosh(graphql(resolver, query, styles, null, variables));
