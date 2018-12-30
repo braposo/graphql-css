@@ -28,97 +28,108 @@ yarn add graphql-css
 
 #### Dependencies
 
-`graphql-css` has three peer dependencies:
-
-*   `glamor`
-*   `graphql`
-*   `graphql-tag`
-
-It's likely you already have these installed, but in the case you don't you just need to run `npm install <package>` or `yarn add <package>` to install them.
+`graphql-css` requires `graphql` to be installed as a peer dependency. It's compatible with [React hooks](https://reactjs.org/docs/hooks-intro.html) so you can use it with React's latest version.
 
 ## Quick start
 
 ```jsx
-import gqlCSS from "graphql-css";
+import useGqlCSS from "graphql-css";
 import styles from "your-style-guide";
 
-const textStyles = gql`
+const App = () => {
+    const { styled } = useGqlCSS(styles);
+    const H2 = styled.h2`
+        {
+            typography {
+                h2
+            }
+            marginLeft: spacing {
+                xl
+            }
+            color: colors {
+                green
+            }
+        }
+    `;
+    return <H2>This is a styled text</H2>;
+};
+```
+
+[![Edit graphql-css][codesandbox-badge]][codesandbox]
+
+## API
+
+By default, `graphql-css` exports a hook-like function called `useGqlCSS`. 
+
+It also exports a couple of other utilities:
+
+-   `GqlCSS`: a component that provides the same declarative API
+-   `gql`: the default export from `graphql-tag` so you don't have to install it if only using graphql-css
+
+### useGqlCSS
+
+The main export is the `useGqlCSS` function that should be used in most cases. It provides these utilities:
+
+-   `styled`: a styled-component inspired function to create components from gqlCSS queries
+-   `getStyles`: a function to extract styles to an object
+-   `GqlCSS`: a component that encapsulates the `styled` functionality
+
+`useGqlCSS` needs to be initialised with the styles from the styleguide in a JSON format (check examples folder for a detailed example).
+
+Here's how you can use it to create a new component with `styled`:
+
+```jsx
+import useGqlCSS from "graphql-css";
+...
+const { styled } = useGqlCSS(styles);
+const Text = styled.p`
     {
         typography {
-            h2
+            fontSize: scale {
+                l
+            }
         }
-        marginLeft: spacing {
-            xl
-        }
+    }
+`;
+...
+<Text>This is a styled text</Text>
+```
+
+alternatively, you can also return the styles as an object with `getStyles` so you can use it with other CSS-in-JS libraries:
+
+```jsx
+import useGqlCSS, { gql } from "graphql-css";
+import styled from "@emotion/styled";
+...
+const query = gql`
+    {
         color: colors {
             green
         }
     }
 `;
-
-const Text = gqlCSS(styles)(textStyles);
-
-const App = () => <Text>This is a styled text</Text>;
+const { getStyles } = useGqlCSS(styles);
+const StyledComponent = styled.div(getStyles(query));
 ```
 
-Playground: https://codesandbox.io/s/jq22wyqm3
-
-## API
-
-`graphql-css` exports a few different components and utility functions:
-
-*   `gqlCSS()`: an utility function to build [glamorous](https://glamorous.rocks/) components
-*   `<GqlCSS>`: a component that displays the queried styles
-*   `<GqlCSSProvider>`: a provider component that broadcasts the styles object to any child `<GqlCSS>` component
-*   `withGqlCSS`: a High-Order Component that injects styles in the components
-*   `<WithGqlCSS>`: a function-as-a-child component that does the same thing as the HOC but it's cooler
-
-### gqlCSS
-
-`gqlCSS` needs to be initialised with the styles from the styleguide in a JSON format (check examples folder for a detailed example).
-
-It works with the following format `gqlCSS(styles)(query, element)`:
-
-| Arg       | Type                          | Default | Definition                                                                                 |
-| --------- | ----------------------------- | ------- | ------------------------------------------------------------------------------------------ |
-| styles    | object                        |         | The styleguide object with all the rules                                                   |
-| query     | gql                           |         | The gql query to get the styles                                                            |
-| component | string \|\| node \|\| boolean | "div"   | HTML element or React component to be displayed. If set to false only styles are returned. |
-
-Here's how you can use it:
+If you want to keep the declarative API you can also use the `GqlCSS`, which is an exact match to the main `GqlCSS` component exported by this library. The only difference is that the `useGqlCSS` version already has the styles initialised.
 
 ```jsx
-const Text = gqlCSS(styles)(query);
+import useGqlCSS, { gql } from "graphql-css";
 ...
-<Text>This is a styled text<Text>
+const { GqlCSS } = useGqlCSS(styles);
+const query = gql`
+    {
+        typography {
+            h2
+        }
+    }
+`;
+...
+<GqlCSS query={query} component="h2">This is a styled text</GqlCSS>
 ```
 
-alternatively you can also initialise it separately and reuse it:
-
-```jsx
-const getStyles = gqlCSS(styles);
-...
-const ComponentOne = getStyles(queryOne);
-const ComponentTwo = getStyles(queryTwo);
-```
-
-`gqlCSS` returns a [`glamorous`](https://glamorous.rocks/) component by default, which means it accepts everything that `glamorous` supports such as additional styling through the `css` prop or changing the HTML element used.
-
-```jsx
-const Component = gqlCSS(styles)(query);
-const ComponentH1 = gqlCSS(styles)(query, "h1");
-...
-<Component css={{ marginTop: 10 }} />
-<ComponentH1 />
-```
-
-If the `component` argument is set to false it'll only return the styles object so it can be used with other libraries or just inline styles.
-
-```jsx
-const styles = gqlCSS(styles)(query, false);
-...
-<div styles={styles}>Inline styled text</div>
-```
+Please check the `GqlCSS` section below for a detailed reference.
 
 ### GqlCSS
 
@@ -130,70 +141,13 @@ const styles = gqlCSS(styles)(query, false);
 | query     | gql              |         | The gql query to get the styles                 |
 | component | string \|\| node | "div"   | HTML element or React component to be displayed |
 
-All the remaining props are passed to the generated component so you can still use `glamorous` API. Here are some examples:
+All the remaining props are passed to the generated component. Here are some examples:
 
 ```jsx
 ...
 <GqlCSS styles={styles} query={query}>This is a styled text</GqlCSS>
 <GqlCSS styles={styles} query={queryH1} component="h1">This is a styled H1 heading</GqlCSS>
-<GqlCSS styles={styles} query={queryH1} css={{ marginBottom: 10 }}>This is a custom styled text</GqlCSS>
 ...
-```
-
-### GqlCSSProvider
-
-The `<GqlCSSProvider>` component allows to pass down the styles definition to any `<GqlCSS>` component that exists down the tree. Ideally, you'd use `<GqlCSSProvider>` in the root of your application.
-
-```jsx
-<GqlCSSProvider styles={styles}>
-    <App />
-</GqlCSSProvider>
-
-// Somewhere inside your App
-<GqlCSS query={h1Styles} css={{ marginTop: 30 }}>
-    Using provider
-</GqlCSS>
-<div>
-    <div>
-        <span>
-            <GqlCSS query={h2Styles}>Deep nested child using provider</GqlCSS>
-        </span>
-    </div>
-</div>
-```
-
-### withGqlCSS
-
-`withGqlCSS` is a HOC that injects the styles to your existing component through the `gqlStyles` prop.
-
-```jsx
-// In component.js
-const Component = ({ gqlStyles }) => <div styles={gqlStyles}>...</div>;
-
-export default withGqlCSS(styles, query)(Component);
-```
-
-To avoid always adding the styles you can initialise the existing HOC with your styleguide and then reuse it in the code.
-
-```jsx
-// in your HOC file
-import styles from "your-style-guide";
-import { withGqlCSS } from "graphql-css";
-
-export const myHOC = (query) => withGqlCSS(styles, query);
-
-// in your component file
-export myHOC(query)(Component);
-```
-
-### WithGqlCSS
-
-`<WithGqlCSS>` works similarly to `withGqlCSS` but uses the function-as-a-child aka render props pattern.
-
-```jsx
-<WithGqlCSS styles={styles} query={h2Styles}>
-    {({ gqlStyles }) => <div style={gqlStyles}>Render props component</div>}
-</WithGqlCSS>
 ```
 
 ## Styles object
@@ -227,6 +181,7 @@ const styles = {
         l: base * 6,
         xl: base * 8,
         xxl: base * 10,
+        unit: "px",
     },
     colors: {
         blue: "blue",
@@ -289,12 +244,14 @@ Because _This is just GraphQL™_, you can also create fragments that can then b
 ```js
 const h1Styles = gql`
     fragment H1 on Styles {
-        typography {
-            fontSize: scale {
-                xl
-            }
-            fontWeight: weight {
-                bold
+        base {
+            typography {
+                fontSize: scale {
+                    xl
+                }
+                fontWeight: weight {
+                    bold
+                }
             }
         }
     }
@@ -304,8 +261,10 @@ const otherH1Styles = gql`
     ${h1Styles}
     {
         ...H1
-        color: colors {
-            blue
+        base {
+            color: colors {
+                blue
+            }
         }
     }
 `;
@@ -328,11 +287,13 @@ You can also override the pre-defined unit directly in your query by using the a
 }
 ```
 
-This will return `marginLeft: 24em, paddingTop: 32px`.
+This will return `{ marginLeft: "24em", paddingTop: "32px" }`.
 
 #### Using style variations (theming)
 
 One of the big advantages of CSS-in-GQL™ is that you can use the power of variables to build custom queries. In `graphql-css` that means that we can easily define variants (think themes) for specific components.
+
+Let's start with this style definition file:
 
 ```js
 const styles = {
@@ -349,23 +310,47 @@ const styles = {
         },
     },
 };
+```
 
-const stateStyles = gql`
+We now have two options to handle theming, first using the `styled` function from `useGqlCSS`:
+
+```jsx
+import useGqlCSS, { gql } from "graphql-css";
+...
+const { styled } = useGqlCSS(styles);
+const Button = styled.button`
+    {
+        theme(variant: ${props => props.variant}) {
+            button
+        }
+    }
+`;
+...
+<Button variant="dark">Some text</Button>
+```
+
+Alternatively, we can use GraphQL variables instead by using `getStyles`:
+
+```jsx
+import useGqlCSS, { gql } from "graphql-css";
+import styled from "@emotion/styled";
+...
+const { getStyles } = useGqlCSS(styles);
+const query = gql`
     {
         theme(variant: $variant) {
             button
         }
     }
 `;
-
-// This can also be a stateful component that changes the variant according to state.
-// Please check the examples folder for a detailed example.
-const StyledComponent = gqlCSS(styles)(stateStyles, null, { variant: "light" });
+const LightButton = styled.button(getStyles(query, { variant: "light" }));
+...
+<LightButton>Some text</LightButton>
 ```
 
 ## Developing
 
-You can use `yarn run dev` and `yarn run dev:server` to run the examples and test this library before using it in your project.
+You can use `yarn run dev` to run it locally, but we recommend using the [CodeSandbox playground][codesandbox] for development.
 
 ## Contributing
 
@@ -393,3 +378,5 @@ Please follow our [contributing guidelines](https://github.com/braposo/graphql-c
 [coverage-badge]: https://img.shields.io/codecov/c/github/braposo/graphql-css.svg?style=flat-square
 [coverage]: https://codecov.io/github/braposo/graphql-css
 [modules-badge]: https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20esm-green.svg?style=flat-square
+[codesandbox-badge]: https://codesandbox.io/static/img/play-codesandbox.svg
+[codesandbox]: https://codesandbox.io/s/github/braposo/graphql-css/

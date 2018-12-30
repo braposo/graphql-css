@@ -1,159 +1,103 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GqlCSS it renders component with styles 1`] = `
+<div>
+  <div
+    class="x0 x1 x2 x3"
+  >
+    Using component with styles
+  </div>
+</div>
+`;
+
 exports[`GqlCSS it renders component without styles 1`] = `
 <div>
   <div
-    class="css-nil"
+    class=""
   >
-    Using component
+    Using component without styles
   </div>
 </div>
 `;
 
-exports[`GqlCSSProvider it supports the Provider/Subscriber pattern 1`] = `
-.css-0,
-[data-css-0] {
-  font-size: 36px;
-  font-weight: 700;
-  margin-left: 32px;
-  color: green;
-}
-
-.css-1,
-[data-css-1] {
-  font-size: 52px;
-  font-weight: 700;
-  margin-left: 24px;
-  color: red;
-  margin-top: 30px;
-}
-
-<div>
-  <span>
-    <div>
-      <div>
-        <span>
-          <div
-            class="css-0"
-          >
-            Using provider
-          </div>
-        </span>
-      </div>
-      <div
-        class="css-1"
-      >
-        Also using provider
-      </div>
-    </div>
-  </span>
-</div>
-`;
-
-exports[`WithGqlCSS it supports the render props pattern 1`] = `
+exports[`useGqlCSS with GqlCSS it supports variables and stateful components 1`] = `
 <div>
   <div
-    style="font-size: 36px; font-weight: 700; margin-left: 32px; color: green;"
-  >
-    Render props component
-  </div>
-</div>
-`;
-
-exports[`gqlCSS it returns a styled component by not passing any component 1`] = `
-.css-0,
-[data-css-0] {
-  font-size: 36px;
-  font-weight: 700;
-  margin-left: 32px;
-  color: green;
-}
-
-<div>
-  <div
-    class="css-0"
-  />
-</div>
-`;
-
-exports[`gqlCSS it returns a styled component by passing a div 1`] = `
-.css-0,
-[data-css-0] {
-  font-size: 36px;
-  font-weight: 700;
-  margin-left: 32px;
-  color: green;
-}
-
-<div>
-  <div
-    class="css-0"
-  />
-</div>
-`;
-
-exports[`gqlCSS it supports variables and stateful components 1`] = `
-.css-0,
-[data-css-0] {
-  font-size: 36px;
-  background-color: red;
-  padding: 24px;
-  cursor: pointer;
-}
-
-<div>
-  <div
-    class="css-0"
+    class="x4 x5 x6 x7"
     data-testid="stateful-component"
   >
     Using stateful component
   </div>
-  <div
-    class="css-0"
-  >
-    Other sharing state
-  </div>
 </div>
 `;
 
-exports[`gqlCSS it supports variables and stateful components 2`] = `
-.css-0,
-[data-css-0] {
-  font-size: 36px;
-  background-color: green;
-  padding: 24px;
-  cursor: pointer;
-}
-
+exports[`useGqlCSS with GqlCSS it supports variables and stateful components 2`] = `
 <div>
   <div
-    class="css-0"
+    class="x4 x9 x6 x7"
     data-testid="stateful-component"
   >
     Using stateful component
   </div>
+</div>
+`;
+
+exports[`useGqlCSS with styled it fails if interpolation is null 1`] = `
+<div>
   <div
-    class="css-0"
+    class=""
   >
-    Other sharing state
+    Some heading
   </div>
 </div>
 `;
 
-exports[`withGqlCSS it supports the HOC pattern 1`] = `
-.css-0,
-[data-css-0] {
-  font-size: 52px;
-  font-weight: 700;
-  margin-left: 4em;
-  color: blue;
-}
-
+exports[`useGqlCSS with styled it fails if props don't exist 1`] = `
 <div>
   <div
-    class="css-0"
+    class=""
   >
-    test
+    Some heading
+  </div>
+</div>
+`;
+
+exports[`useGqlCSS with styled it handles style interpolation 1`] = `
+<div>
+  <h3
+    class="x8"
+  >
+    Some heading
+  </h3>
+</div>
+`;
+
+exports[`useGqlCSS with styled it returns a styled component 1`] = `
+<div>
+  <h2
+    class="x0 x1 x2 x3"
+  >
+    Some heading
+  </h2>
+</div>
+`;
+
+exports[`useGqlCSS with styled it supports variables and stateful components 1`] = `
+<div>
+  <div
+    class="x4 x5 x6 x7 x8"
+  >
+    Other component sharing state
+  </div>
+</div>
+`;
+
+exports[`useGqlCSS with styled it supports variables and stateful components 2`] = `
+<div>
+  <div
+    class="x4 x9 x6 x7 x8"
+  >
+    Other component sharing state
   </div>
 </div>
 `;

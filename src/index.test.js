@@ -1,146 +1,307 @@
 /* eslint-env jest */
 
-import React from "react";
-import { render, Simulate } from "react-testing-library";
-import serializer from "jest-glamor-react";
-import { Div } from "glamorous";
-import PropTypes from "prop-types";
-import gqlCSS, { GqlCSS, GqlCSSProvider, WithGqlCSS, withGqlCSS } from "./index";
+import React, { useState } from "react";
+import { render, cleanup, fireEvent } from "react-testing-library";
+import useGqlCSS, { gql, GqlCSS as GqlCSSComponent } from "./index";
 import styles from "../examples/styleguide";
-import { h1Styles, h2Styles, customH1Styles, stateStyles } from "../examples/styleQueries";
+import { h2Styles, stateStyles } from "../examples/styleQueries";
+import PropTypes from "prop-types";
 
-expect.addSnapshotSerializer(serializer);
+afterEach(cleanup);
 
-describe("gqlCSS", () => {
-    it("it allows the extraction of styles by passing false", () => {
-        const extractedStyles = gqlCSS(styles)(h2Styles, false);
-        expect(extractedStyles).toEqual({
-            color: "green",
-            fontSize: "36px",
-            fontWeight: 700,
-            marginLeft: 32,
+global.console = {
+    error: jest.fn(),
+};
+
+describe("useGqlCSS", () => {
+    describe("with styled", () => {
+        it("it returns a styled component", () => {
+            const { styled } = useGqlCSS(styles);
+            const H2 = styled.h2(h2Styles);
+            const { container } = render(<H2>Some heading</H2>);
+            expect(container).toMatchSnapshot();
+        });
+
+        it("it supports variables and stateful components", () => {
+            function StatefulComponent() {
+                const [variant, setVariant] = useState("normal");
+                const { styled } = useGqlCSS(styles);
+                const toggleVariant = () =>
+                    setVariant(state => (state === "normal" ? "done" : "normal"));
+                const Button = styled`{
+                    theme(variant: ${props => props.variant}) {
+                        button
+                    }
+                    base {
+                        marginLeft: spacing {
+                            m
+                        }
+                    }
+                }`;
+                Button.propTypes = {
+                    variant: PropTypes.string.isRequired,
+                };
+
+                return (
+                    <Button variant={variant} onClick={toggleVariant}>
+                        Other component sharing state
+                    </Button>
+                );
+            }
+
+            const { container } = render(<StatefulComponent />);
+
+            expect(container).toMatchSnapshot();
+
+            fireEvent.click(container.firstChild);
+
+            expect(container).toMatchSnapshot();
+        });
+
+        it("it fails if props don't exist", () => {
+            const { styled } = useGqlCSS(styles);
+            const H2 = styled`{
+                theme(variant: ${props => props.variant}) {
+                    button
+                }
+                base {
+                    marginLeft: spacing {
+                        m
+                    }
+                }
+            }`;
+            H2.propTypes = {
+                variant: PropTypes.string,
+            };
+
+            const { container } = render(<H2>Some heading</H2>);
+            expect(global.console.error).toHaveBeenCalledWith(
+                "Not a valid gql query. Did you forget a prop?"
+            );
+            expect(container).toMatchSnapshot();
+        });
+
+        it("it fails if interpolation is null", () => {
+            const { styled } = useGqlCSS(styles);
+            const H2 = styled`{
+                theme(variant: ${null}) {
+                    button
+                }
+                base {
+                    marginLeft: spacing {
+                        m
+                    }
+                }
+            }`;
+
+            const { container } = render(<H2>Some heading</H2>);
+            expect(global.console.error).toHaveBeenCalledWith(
+                "Not a valid gql query. Did you forget a prop?"
+            );
+            expect(container).toMatchSnapshot();
+        });
+
+        it("it handles style interpolation", () => {
+            const { styled } = useGqlCSS(styles);
+            const color = "blue";
+            const H3 = styled.h3`{
+                base {
+                    marginLeft: spacing {
+                        m
+                    }
+                }
+        
+                ${props =>
+                    props.primary &&
+                    `
+                      base {
+                          color: colors {
+                              ${color}
+                          }
+                      }
+                `}
+            }`;
+            H3.propTypes = {
+                primary: PropTypes.bool.isRequired,
+            };
+            H3.defaultProps = {
+                primary: false,
+            };
+
+            const { container } = render(<H3>Some heading</H3>);
+            expect(container).toMatchSnapshot();
         });
     });
 
-    it("it returns a styled component by passing a div", () => {
-        const StyledComponent = gqlCSS(styles)(h2Styles, "div");
-        const { container } = render(<StyledComponent />);
-        expect(container).toMatchSnapshot();
+    describe("with getStyles", () => {
+        it("it allows the extraction of styles", () => {
+            const { getStyles } = useGqlCSS(styles);
+            const query = gql`
+                {
+                    base {
+                        typography {
+                            fontSize: scale {
+                                l
+                            }
+                            fontWeight: weight {
+                                bold
+                            }
+                        }
+                        marginLeft: spacing {
+                            xl
+                        }
+                        color: colors {
+                            green
+                        }
+                    }
+                }
+            `;
+            const extractedStyles = getStyles(query);
+            expect(extractedStyles).toEqual({
+                color: "green",
+                fontSize: "36px",
+                fontWeight: 700,
+                marginLeft: "32px",
+            });
+        });
+
+        it("it supports variables", () => {
+            const { getStyles } = useGqlCSS(styles);
+            const query = gql`
+                {
+                    theme(variant: $variant) {
+                        button
+                    }
+                }
+            `;
+            const extractedStyles = getStyles(query, { variant: "done" });
+            expect(extractedStyles).toEqual({
+                backgroundColor: "green",
+                cursor: "pointer",
+                fontSize: 36,
+                padding: 24,
+            });
+        });
+
+        it("it handles fragments", () => {
+            const { getStyles } = useGqlCSS(styles);
+            const headingStyles = gql`
+                fragment Heading on Styles {
+                    base {
+                        typography {
+                            fontSize: scale {
+                                xl
+                            }
+                            fontWeight: weight {
+                                bold
+                            }
+                        }
+                    }
+                }
+            `;
+            const query = gql`
+                ${headingStyles}
+                {
+                    ...Heading
+                    base {
+                        color: colors {
+                            blue
+                        }
+                    }
+                }
+            `;
+            const extractedStyles = getStyles(query);
+            expect(extractedStyles).toEqual({
+                color: "blue",
+                fontSize: "52px",
+                fontWeight: 700,
+            });
+        });
+
+        it("it handles custom units", () => {
+            const { getStyles } = useGqlCSS(styles);
+            const query = gql`
+                {
+                    base {
+                        typography {
+                            fontSize: scale {
+                                l
+                            }
+                            fontWeight: weight {
+                                bold
+                            }
+                        }
+                        marginLeft: spacing(unit: "em") {
+                            s
+                        }
+                        color: colors {
+                            green
+                        }
+                    }
+                }
+            `;
+            const extractedStyles = getStyles(query);
+            expect(extractedStyles).toEqual({
+                color: "green",
+                fontSize: "36px",
+                fontWeight: 700,
+                marginLeft: "4em",
+            });
+        });
+
+        it("it only supports gql queries", () => {
+            const { getStyles } = useGqlCSS(styles);
+            const query = "something else";
+            expect(() => getStyles(query)).toThrowError("Query must be a valid gql query");
+        });
     });
 
-    it("it returns a styled component by not passing any component", () => {
-        const StyledComponent = gqlCSS(styles)(h2Styles);
-        const { container } = render(<StyledComponent />);
-        expect(container).toMatchSnapshot();
-    });
-
-    it("it supports variables and stateful components", () => {
-        class StatefulComponent extends React.Component {
-            constructor(props) {
-                super(props);
-                this.state = {
-                    variant: "normal",
-                };
-                this.handleClick = this.handleClick.bind(this);
-            }
-
-            handleClick() {
-                this.setState(state => {
-                    return {
-                        variant: state.variant === "normal" ? "done" : "normal",
-                    };
-                });
-            }
-
-            render() {
-                const { variant } = this.state;
-                const OtherComponent = gqlCSS(styles)(stateStyles, null, { variant });
+    describe("with GqlCSS", () => {
+        it("it supports variables and stateful components", () => {
+            function StatefulComponent() {
+                const [variant, setVariant] = useState("normal");
+                const { GqlCSS } = useGqlCSS(styles);
+                const toggleVariant = () =>
+                    setVariant(state => (state === "normal" ? "done" : "normal"));
 
                 return (
-                    <React.Fragment>
-                        <GqlCSS
-                            styles={styles}
-                            query={stateStyles}
-                            variables={{ variant }}
-                            onClick={this.handleClick}
-                            data-testid="stateful-component"
-                        >
-                            Using stateful component
-                        </GqlCSS>
-                        <OtherComponent>Other sharing state</OtherComponent>
-                    </React.Fragment>
+                    <GqlCSS
+                        query={stateStyles}
+                        variables={{ variant }}
+                        data-testid="stateful-component"
+                        onClick={toggleVariant}
+                    >
+                        Using stateful component
+                    </GqlCSS>
                 );
             }
-        }
 
-        const { container, queryByTestId } = render(<StatefulComponent />);
+            const { container, queryByTestId } = render(<StatefulComponent />);
 
-        expect(container).toMatchSnapshot();
+            expect(container).toMatchSnapshot();
 
-        Simulate.click(queryByTestId("stateful-component"));
+            fireEvent.click(queryByTestId("stateful-component"));
 
-        expect(container).toMatchSnapshot();
+            expect(container).toMatchSnapshot();
+        });
     });
 });
 
 describe("GqlCSS", () => {
     it("it renders component without styles", () => {
-        const { container } = render(<GqlCSS query={h2Styles}>Using component</GqlCSS>);
-
-        expect(container).toMatchSnapshot();
-    });
-});
-
-describe("GqlCSSProvider", () => {
-    it("it supports the Provider/Subscriber pattern", () => {
-        const SubscriberComponent = () => (
-            <div>
-                <div>
-                    <span>
-                        <GqlCSS query={h2Styles}>Using provider</GqlCSS>
-                    </span>
-                </div>
-                <GqlCSS query={h1Styles} css={{ marginTop: 30 }}>
-                    Also using provider
-                </GqlCSS>
-            </div>
-        );
         const { container } = render(
-            <GqlCSSProvider styles={styles}>
-                <SubscriberComponent />
-            </GqlCSSProvider>
+            <GqlCSSComponent query={h2Styles}>Using component without styles</GqlCSSComponent>
         );
 
         expect(container).toMatchSnapshot();
     });
-});
 
-describe("WithGqlCSS", () => {
-    it("it supports the render props pattern", () => {
+    it("it renders component with styles", () => {
         const { container } = render(
-            <WithGqlCSS styles={styles} query={h2Styles}>
-                {({ gqlStyles }) => <div style={gqlStyles}>Render props component</div>}
-            </WithGqlCSS>
+            <GqlCSSComponent styles={styles} query={h2Styles}>
+                Using component with styles
+            </GqlCSSComponent>
         );
-
-        expect(container).toMatchSnapshot();
-    });
-});
-
-describe("withGqlCSS", () => {
-    it("it supports the HOC pattern", () => {
-        const ExistingComponent = ({ gqlStyles, ...rest }) => (
-            <Div css={gqlStyles} {...rest}>
-                test
-            </Div>
-        );
-
-        ExistingComponent.propTypes = {
-            gqlStyles: PropTypes.object,
-        };
-
-        const HoC = withGqlCSS(styles, customH1Styles)(ExistingComponent);
-        const { container } = render(<HoC />);
 
         expect(container).toMatchSnapshot();
     });
