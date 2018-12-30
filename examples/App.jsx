@@ -9,9 +9,9 @@ const Context = React.createContext();
 
 function StatefulComponent() {
     const [variant, setVariant] = useState("normal");
-    const { gqlcss, GqlCSS } = useGqlCSS(styleguide);
+    const { styled, GqlCSS } = useGqlCSS(styleguide);
     const toggleVariant = () => setVariant(state => (state === "normal" ? "done" : "normal"));
-    const OtherComponent = gqlcss`{
+    const OtherComponent = styled.button`{
         theme(variant: ${props => props.variant}) {
             button
         }
@@ -60,9 +60,9 @@ function SubscriberComponent() {
 }
 
 function App() {
-    const { gqlcss } = useGqlCSS(styleguide);
-    const H2 = gqlcss.h2(h2Styles);
-    const H3 = gqlcss.h3`{
+    const { styled } = useGqlCSS(styleguide);
+    const H2 = styled.h2(h2Styles);
+    const H3 = styled.h3`{
         base {
             marginLeft: spacing {
                 m
